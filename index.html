@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>XO ARENA</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+    color:white;
+
+    background:
+        radial-gradient(circle at top,#24305e 0%,transparent 35%),
+        linear-gradient(135deg,#070812,#11152b 50%,#070812);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:15px;
+}
+
+.game{
+    width:min(94%,520px);
+    padding:25px;
+
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:28px;
+
+    background:rgba(15,18,38,.85);
+
+    box-shadow:0 25px 80px rgba(0,0,0,.55);
+
+    backdrop-filter:blur(18px);
+}
+
+.start-screen{
+    text-align:center;
+}
+
+.logo{
+    font-size:36px;
+    font-weight:900;
+    letter-spacing:3px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#9298b8;
+    margin-bottom:25px;
+}
+
+.input-box{
+    margin-bottom:15px;
+}
+
+.input-box label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:15px;
+
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:15px;
+
+    background:rgba(255,255,255,.06);
+    color:white;
+
+    outline:none;
+
+    font-size:16px;
+    text-align:center;
+}
+
+input:focus{
+    border-color:#7c5cff;
+    box-shadow:0 0 15px rgba(124,92,255,.2);
+}
+
+.start-button{
+    width:100%;
+    margin-top:10px;
+
+    border:0;
+    padding:15px;
+
+    border-radius:15px;
+
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    background:linear-gradient(135deg,#7658ff,#9b5cff);
+
+    transition:.2s;
+}
+
+.start-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(124,92,255,.25);
+}
+
+.start-button:active{
+    transform:scale(.98);
+}
+
+#gameScreen{
+    display:none;
+}
+
+.players{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.player{
+    padding:15px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    text-align:center;
+
+    transition:.25s;
+}
+
+.player.active{
+    border-color:#7c5cff;
+
+    box-shadow:0 0 25px rgba(124,92,255,.25);
+
+    transform:translateY(-3px);
+}
+
+.avatar{
+    font-size:38px;
+    font-weight:900;
+}
+
+.name{
+    font-weight:bold;
+    margin-top:5px;
+
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.score{
+    font-size:27px;
+    font-weight:900;
+    margin-top:5px;
+}
+
+.status{
+    text-align:center;
+
+    margin:22px 0;
+
+    font-size:18px;
+    font-weight:bold;
+
+    min-height:22px;
+}
+
+.board{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:12px;
+
+    max-width:390px;
+
+    margin:auto;
+}
+
+.cell{
+    aspect-ratio:1;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.055);
+
+    color:white;
+
+    font-size:clamp(35px,10vw,65px);
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.18s;
+}
+
+.cell:hover:not(:disabled){
+    transform:scale(1.04);
+
+    background:rgba(124,92,255,.15);
+
+    border-color:#7c5cff;
+}
+
+.cell:disabled{
+    cursor:default;
+}
+
+/* X أحمر */
+.cell.m{
+    color:#ff3b3b;
+
+    text-shadow:
+        0 0 20px rgba(255,59,59,.7);
+}
+
+/* O أخضر */
+.cell.t{
+    color:#35e06f;
+
+    text-shadow:
+        0 0 20px rgba(53,224,111,.7);
+}
+
+.cell.winner{
+    animation:win .7s infinite alternate;
+
+    border-color:#ffd84d;
+
+    background:rgba(255,216,77,.12);
+}
+
+@keyframes win{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.07);
+    }
+
+}
+
+.buttons{
+    display:flex;
+
+    gap:10px;
+
+    margin-top:22px;
+}
+
+.control{
+    flex:1;
+
+    border:0;
+
+    padding:14px;
+
+    border-radius:15px;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:linear-gradient(135deg,#7658ff,#9b5cff);
+
+    transition:.2s;
+}
+
+.control:hover{
+    transform:translateY(-2px);
+}
+
+.control:active{
+    transform:scale(.98);
+}
+
+.reset-score{
+    background:rgba(255,255,255,.08);
+}
+
+.developer{
+    text-align:center;
+
+    color:#777d9d;
+
+    font-size:13px;
+
+    margin-top:20px;
+}
+
+@media(max-width:400px){
+
+    .game{
+        padding:18px;
+    }
+
+    .logo{
+        font-size:28px;
+    }
+
+    .board{
+        gap:8px;
+    }
+
+    .cell{
+        border-radius:15px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="game">
+
+
+<!-- =========================
+     شاشة البداية
+========================= -->
+
+<div class="start-screen" id="startScreen">
+
+    <div class="logo">
+        ⚡ XO ARENA
+    </div>
+
+    <div class="subtitle">
+        لعبة XO للاعبين
+    </div>
+
+
+    <div class="input-box">
+
+        <label>
+            👤 اسم اللاعب الأول
+        </label>
+
+        <input
+            id="nameM"
+            type="text"
+            maxlength="15"
+            placeholder="اكتب اسمك"
+            autocomplete="off">
+
+    </div>
+
+
+    <div class="input-box">
+
+        <label>
+            👤 اسم اللاعب الثاني
+        </label>
+
+        <input
+            id="nameT"
+            type="text"
+            maxlength="15"
+            placeholder="اكتب اسمك"
+            autocomplete="off">
+
+    </div>
+
+
+    <button
+        class="start-button"
+        id="startButton">
+
+        🎮 ابدأ اللعب
+
+    </button>
+
+
+    <div class="developer">
+        المطور: طارق محمود
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     شاشة اللعبة
+========================= -->
+
+<div id="gameScreen">
+
+
+    <div
+        class="logo"
+        style="text-align:center;">
+
+        ⚡ XO ARENA
+
+    </div>
+
+
+    <div
+        class="subtitle"
+        style="text-align:center;">
+
+        مواجهة XO
+
+    </div>
+
+
+
+    <!-- اللاعبين -->
+
+    <div class="players">
+
+
+        <div
+            class="player active"
+            id="playerM">
+
+            <div class="avatar">
+                X
+            </div>
+
+            <div
+                class="name"
+                id="displayNameM">
+
+                اللاعب الأول
+
+            </div>
+
+            <div
+                class="score"
+                id="scoreM">
+
+                0
+
+            </div>
+
+        </div>
+
+
+
+        <div
+            class="player"
+            id="playerT">
+
+            <div class="avatar">
+                O
+            </div>
+
+            <div
+                class="name"
+                id="displayNameT">
+
+                اللاعب الثاني
+
+            </div>
+
+            <div
+                class="score"
+                id="scoreT">
+
+                0
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- حالة اللعبة -->
+
+    <div
+        class="status"
+        id="status">
+
+        دور اللاعب الأول ❌
+
+    </div>
+
+
+
+    <!-- لوحة XO -->
+
+    <div
+        class="board"
+        id="board">
+
+    </div>
+
+
+
+    <!-- الأزرار -->
+
+    <div class="buttons">
+
+        <button
+            class="control"
+            id="newGameButton">
+
+            🎮 جولة جديدة
+
+        </button>
+
+
+        <button
+            class="control reset-score"
+            id="resetButton">
+
+            🗑️ تصفير النقاط
+
+        </button>
+
+    </div>
+
+
+
+    <div class="developer">
+        المطور: طارق محمود
+    </div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =========================
+   عناصر الصفحة
+========================= */
+
+const board =
+    document.getElementById("board");
+
+const status =
+    document.getElementById("status");
+
+const startScreen =
+    document.getElementById("startScreen");
+
+const gameScreen =
+    document.getElementById("gameScreen");
+
+const startButton =
+    document.getElementById("startButton");
+
+const newGameButton =
+    document.getElementById("newGameButton");
+
+const resetButton =
+    document.getElementById("resetButton");
+
+const nameM =
+    document.getElementById("nameM");
+
+const nameT =
+    document.getElementById("nameT");
+
+const displayNameM =
+    document.getElementById("displayNameM");
+
+const displayNameT =
+    document.getElementById("displayNameT");
+
+const scoreM =
+    document.getElementById("scoreM");
+
+const scoreT =
+    document.getElementById("scoreT");
+
+const playerM =
+    document.getElementById("playerM");
+
+const playerT =
+    document.getElementById("playerT");
+
+
+
+/* =========================
+   متغيرات اللعبة
+========================= */
+
+let cells = [];
+
+let currentPlayer = "M";
+
+let gameOver = false;
+
+let scores = {
+    M: 0,
+    T: 0
+};
+
+
+
+/* =========================
+   أماكن الفوز
+========================= */
+
+const winningPatterns = [
+
+    [0,1,2],
+
+    [3,4,5],
+
+    [6,7,8],
+
+    [0,3,6],
+
+    [1,4,7],
+
+    [2,5,8],
+
+    [0,4,8],
+
+    [2,4,6]
+
+];
+
+
+
+/* =========================
+   زر ابدأ اللعب
+========================= */
+
+startButton.addEventListener("click", function(){
+
+    let playerOne =
+        nameM.value.trim();
+
+    let playerTwo =
+        nameT.value.trim();
+
+
+    if(playerOne === ""){
+        playerOne = "اللاعب الأول";
+    }
+
+
+    if(playerTwo === ""){
+        playerTwo = "اللاعب الثاني";
+    }
+
+
+    displayNameM.textContent =
+        playerOne;
+
+    displayNameT.textContent =
+        playerTwo;
+
+
+    startScreen.style.display =
+        "none";
+
+    gameScreen.style.display =
+        "block";
+
+
+    scores.M = 0;
+    scores.T = 0;
+
+
+    updateScores();
+
+    startNewRound();
+
+});
+
+
+
+/* =========================
+   إنشاء لوحة اللعب
+========================= */
+
+function createBoard(){
+
+    board.innerHTML = "";
+
+    cells = [];
+
+
+    for(let i = 0; i < 9; i++){
+
+        const cell =
+            document.createElement("button");
+
+
+        cell.className =
+            "cell";
+
+
+        cell.dataset.index =
+            i;
+
+
+        cell.addEventListener(
+            "click",
+            function(){
+
+                makeMove(i);
+
+            }
+        );
+
+
+        board.appendChild(cell);
+
+        cells.push(cell);
+
+    }
+
+}
+
+
+
+/* =========================
+   بداية جولة جديدة
+========================= */
+
+function startNewRound(){
+
+    createBoard();
+
+    currentPlayer = "M";
+
+    gameOver = false;
+
+    playerM.classList.add("active");
+
+    playerT.classList.remove("active");
+
+    updateTurn();
+
+}
+
+
+
+/* =========================
+   تنفيذ الحركة
+========================= */
+
+function makeMove(index){
+
+    if(gameOver){
+        return;
+    }
+
+
+    const cell =
+        cells[index];
+
+
+    if(cell.textContent !== ""){
+        return;
+    }
+
+
+    if(currentPlayer === "M"){
+
+        cell.textContent = "X";
+
+        cell.classList.add("m");
+
+    }
+
+    else{
+
+        cell.textContent = "O";
+
+        cell.classList.add("t");
+
+    }
+
+
+    cell.disabled = true;
+
+
+    const winner =
+        checkWinner();
+
+
+    if(winner){
+
+        finishRound(winner);
+
+        return;
+
+    }
+
+
+    /* التعادل */
+
+    if(
+        cells.every(
+            function(cell){
+                return cell.textContent !== "";
+            }
+        )
+    ){
+
+        gameOver = true;
+
+        playerM.classList.remove("active");
+
+        playerT.classList.remove("active");
+
+        status.textContent =
+            "🤝 تعادل!";
+
+        return;
+
+    }
+
+
+    /* تبديل اللاعب */
+
+    if(currentPlayer === "M"){
+
+        currentPlayer = "T";
+
+    }
+
+    else{
+
+        currentPlayer = "M";
+
+    }
+
+
+    updateTurn();
+
+}
+
+
+
+/* =========================
+   فحص الفائز
+========================= */
+
+function checkWinner(){
+
+    for(
+        const pattern
+        of winningPatterns
+    ){
+
+        const a =
+            cells[pattern[0]].textContent;
+
+        const b =
+            cells[pattern[1]].textContent;
+
+        const c =
+            cells[pattern[2]].textContent;
+
+
+        if(
+            a !== "" &&
+            a === b &&
+            b === c
+        ){
+
+            return pattern;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+
+/* =========================
+   إنهاء الجولة
+========================= */
+
+function finishRound(pattern){
+
+    gameOver = true;
+
+
+    pattern.forEach(
+        function(index){
+
+            cells[index]
+                .classList
+                .add("winner");
+
+        }
+    );
+
+
+    scores[currentPlayer]++;
+
+
+    updateScores();
+
+
+    let winnerName;
+
+
+    if(currentPlayer === "M"){
+
+        winnerName =
+            displayNameM.textContent;
+
+        playerM.classList.add("active");
+        playerT.classList.remove("active");
+
+    }
+
+    else{
+
+        winnerName =
+            displayNameT.textContent;
+
+        playerT.classList.add("active");
+        playerM.classList.remove("active");
+
+    }
+
+
+    status.textContent =
+        `🏆 ${winnerName} فاز بالجولة!`;
+
+}
+
+
+
+/* =========================
+   تحديث الدور
+========================= */
+
+function updateTurn(){
+
+    if(currentPlayer === "M"){
+
+        status.textContent =
+            `دور ${displayNameM.textContent} ❌`;
+
+
+        playerM.classList.add("active");
+
+        playerT.classList.remove("active");
+
+    }
+
+    else{
+
+        status.textContent =
+            `دور ${displayNameT.textContent} ⭕`;
+
+
+        playerT.classList.add("active");
+
+        playerM.classList.remove("active");
+
+    }
+
+}
+
+
+
+/* =========================
+   تحديث النقاط
+========================= */
+
+function updateScores(){
+
+    scoreM.textContent =
+        scores.M;
+
+    scoreT.textContent =
+        scores.T;
+
+}
+
+
+
+/* =========================
+   جولة جديدة
+========================= */
+
+newGameButton.addEventListener(
+    "click",
+    function(){
+
+        startNewRound();
+
+    }
+);
+
+
+
+/* =========================
+   تصفير النقاط
+========================= */
+
+resetButton.addEventListener(
+    "click",
+    function(){
+
+        scores.M = 0;
+
+        scores.T = 0;
+
+
+        updateScores();
+
+        startNewRound();
+
+    }
+);
+
+
+
+/* =========================
+   Enter في اسم اللاعب الأول
+========================= */
+
+nameM.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            nameT.focus();
+
+        }
+
+    }
+);
+
+
+
+/* =========================
+   Enter في اسم اللاعب الثاني
+========================= */
+
+nameT.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            startButton.click();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
