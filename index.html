@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XO ARENA</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+    margin:0;
+    min-height:100%;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+    color:white;
+    overflow-x:hidden;
+
+    background:
+        radial-gradient(circle at 20% 20%,rgba(70,90,180,.22),transparent 30%),
+        radial-gradient(circle at 80% 80%,rgba(80,180,130,.12),transparent 30%),
+        linear-gradient(135deg,#070812,#11152b 50%,#070812);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+}
+
+/* خلفية متحركة */
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:.16;
+    pointer-events:none;
+    z-index:-1;
+}
+
+body::before{
+    background:#596cff;
+    top:-180px;
+    left:-150px;
+    animation:floatOne 12s ease-in-out infinite alternate;
+}
+
+body::after{
+    background:#35e06f;
+    bottom:-200px;
+    right:-150px;
+    animation:floatTwo 15s ease-in-out infinite alternate;
+}
+
+@keyframes floatOne{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(100px,80px) scale(1.15)}
+    100%{transform:translate(30px,160px) scale(.95)}
+}
+
+@keyframes floatTwo{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(-100px,-70px) scale(1.12)}
+    100%{transform:translate(-30px,-150px) scale(.95)}
+}
+
+.game{
+    position:relative;
+    width:min(94%,520px);
+    padding:25px;
+
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:28px;
+
+    background:rgba(15,18,38,.88);
+
+    box-shadow:0 25px 80px rgba(0,0,0,.55);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+}
+
+.logo{
+    font-size:36px;
+    font-weight:900;
+    letter-spacing:3px;
+    margin-bottom:8px;
+    text-align:center;
+}
+
+.subtitle{
+    color:#9298b8;
+    margin-bottom:25px;
+    text-align:center;
+}
+
+.screen{
+    text-align:center;
+}
+
+.mode-buttons,
+.level-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.mode-button,
+.level-button{
+    width:100%;
+    padding:17px;
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:16px;
+
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    background:rgba(255,255,255,.06);
+
+    transition:.2s;
+}
+
+.mode-button:hover,
+.level-button:hover{
+    transform:translateY(-2px);
+    border-color:#7c5cff;
+    background:rgba(124,92,255,.15);
+    box-shadow:0 8px 25px rgba(124,92,255,.2);
+}
+
+.back-button{
+    margin-top:15px;
+    width:100%;
+    padding:13px;
+
+    border:0;
+    border-radius:14px;
+
+    color:#bbbfd4;
+    background:rgba(255,255,255,.06);
+
+    cursor:pointer;
+}
+
+.input-box{
+    margin-bottom:15px;
+}
+
+.input-box label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:15px;
+
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:15px;
+
+    background:rgba(255,255,255,.06);
+    color:white;
+
+    outline:none;
+
+    font-size:16px;
+    text-align:center;
+}
+
+input:focus{
+    border-color:#7c5cff;
+    box-shadow:0 0 15px rgba(124,92,255,.2);
+}
+
+.start-button{
+    width:100%;
+    margin-top:10px;
+    border:0;
+    padding:15px;
+
+    border-radius:15px;
+
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    background:linear-gradient(135deg,#7658ff,#9b5cff);
+
+    transition:.2s;
+}
+
+.start-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(124,92,255,.25);
+}
+
+#gameScreen,
+#nameScreen,
+#levelScreen,
+#startScreen{
+    display:none;
+}
+
+#homeScreen{
+    display:block;
+}
+
+.players{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.player{
+    padding:15px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    text-align:center;
+
+    transition:.25s;
+}
+
+.player.active{
+    border-color:#7c5cff;
+    box-shadow:0 0 25px rgba(124,92,255,.25);
+    transform:translateY(-3px);
+}
+
+.avatar{
+    font-size:38px;
+    font-weight:900;
+}
+
+.name{
+    font-weight:bold;
+    margin-top:5px;
+
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.score{
+    font-size:27px;
+    font-weight:900;
+    margin-top:5px;
+}
+
+.status{
+    text-align:center;
+    margin:22px 0;
+
+    font-size:18px;
+    font-weight:bold;
+
+    min-height:22px;
+}
+
+.board{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    gap:12px;
+
+    max-width:390px;
+    margin:auto;
+}
+
+.cell{
+    aspect-ratio:1;
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;
+
+    background:rgba(255,255,255,.055);
+
+    color:white;
+
+    font-size:clamp(35px,10vw,65px);
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.18s;
+
+    opacity:1 !important;
+}
+
+.cell:hover:not(:disabled){
+    transform:scale(1.04);
+    background:rgba(124,92,255,.15);
+    border-color:#7c5cff;
+}
+
+.cell:disabled{
+    cursor:default;
+}
+
+.cell.m{
+    color:#ff3b3b !important;
+
+    text-shadow:
+        0 0 10px #ff3b3b,
+        0 0 25px #ff3b3b,
+        0 0 45px rgba(255,59,59,.8);
+}
+
+.cell.t{
+    color:#35e06f !important;
+
+    text-shadow:
+        0 0 10px #35e06f,
+        0 0 25px #35e06f,
+        0 0 45px rgba(53,224,111,.8);
+}
+
+.cell.winner{
+    animation:win .7s infinite alternate;
+
+    border-color:#ffd84d;
+
+    background:rgba(255,216,77,.12);
+}
+
+@keyframes win{
+    from{transform:scale(1)}
+    to{transform:scale(1.07)}
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:22px;
+}
+
+.control{
+    flex:1;
+
+    border:0;
+    padding:14px;
+
+    border-radius:15px;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:linear-gradient(135deg,#7658ff,#9b5cff);
+}
+
+.reset-score{
+    background:rgba(255,255,255,.08);
+}
+
+.developer{
+    text-align:center;
+    color:#777d9d;
+    font-size:13px;
+    margin-top:20px;
+}
+
+.level-title{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.level-button small{
+    display:block;
+    color:#9298b8;
+    margin-top:5px;
+    font-weight:normal;
+}
+
+/* شاشة الفوز */
+.win-overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+
+    background:rgba(3,5,15,.38);
+    backdrop-filter:blur(5px);
+    -webkit-backdrop-filter:blur(5px);
+}
+
+.win-overlay.show{
+    display:flex;
+    animation:overlayIn .25s ease;
+}
+
+.win-box{
+    text-align:center;
+    padding:30px 45px;
+    border-radius:28px;
+
+    background:rgba(15,18,38,.92);
+    border:1px solid rgba(255,255,255,.16);
+
+    box-shadow:
+        0 0 40px rgba(124,92,255,.3),
+        0 25px 80px rgba(0,0,0,.6);
+
+    animation:winnerPop .7s cubic-bezier(.17,.89,.32,1.3);
+}
+
+.win-trophy{
+    font-size:55px;
+    animation:trophy .8s infinite alternate;
+}
+
+.win-title{
+    font-size:22px;
+    color:#aaaec5;
+    margin-top:5px;
+}
+
+.win-name{
+    margin-top:8px;
+    font-size:clamp(32px,9vw,58px);
+    font-weight:900;
+
+    background:linear-gradient(90deg,#ffd84d,#fff,#7c5cff,#35e06f,#ffd84d);
+    background-size:300% auto;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+
+    animation:nameGlow 2s linear infinite;
+}
+
+@keyframes overlayIn{
+    from{opacity:0}
+    to{opacity:1}
+}
+
+@keyframes winnerPop{
+    0%{transform:scale(.4);opacity:0}
+    70%{transform:scale(1.08)}
+    100%{transform:scale(1);opacity:1}
+}
+
+@keyframes trophy{
+    from{transform:translateY(0) rotate(-4deg)}
+    to{transform:translateY(-8px) rotate(4deg)}
+}
+
+@keyframes nameGlow{
+    0%{background-position:0% center}
+    100%{background-position:300% center}
+}
+
+/* المفرقعات */
+.confetti{
+    position:fixed;
+    width:8px;
+    height:14px;
+    top:-20px;
+    z-index:1100;
+    pointer-events:none;
+
+    animation:confettiFall linear forwards;
+}
+
+@keyframes confettiFall{
+    0%{
+        transform:translate3d(0,0,0) rotate(0deg);
+        opacity:1;
+    }
+
+    100%{
+        transform:translate3d(var(--x),110vh,0) rotate(var(--r));
+        opacity:0;
+    }
+}
+
+/* تأثير التعادل */
+.draw-popup{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+
+    background:rgba(3,5,15,.3);
+    backdrop-filter:blur(4px);
+}
+
+.draw-popup.show{
+    display:flex;
+}
+
+.draw-box{
+    padding:30px 45px;
+    border-radius:25px;
+    text-align:center;
+
+    background:rgba(15,18,38,.94);
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:0 20px 70px rgba(0,0,0,.55);
+
+    animation:winnerPop .5s ease;
+}
+
+.draw-icon{
+    font-size:55px;
+}
+
+.draw-text{
+    font-size:27px;
+    font-weight:900;
+    margin-top:8px;
+}
+
+@media(max-width:400px){
+
+    .game{
+        padding:18px;
+    }
+
+    .logo{
+        font-size:28px;
+    }
+
+    .board{
+        gap:8px;
+    }
+
+    .cell{
+        border-radius:15px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    .win-box,
+    .draw-box{
+        margin:20px;
+        padding:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="game">
+
+<!-- الرئيسية -->
+<div id="homeScreen" class="screen">
+
+    <div class="logo">
+        ⚡ XO ARENA
+    </div>
+
+    <div class="subtitle">
+        اختر طريقة اللعب
+    </div>
+
+    <div class="mode-buttons">
+
+        <button class="mode-button" id="friendMode">
+            👥 ضد صاحبك
+        </button>
+
+        <button class="mode-button" id="computerMode">
+            🖥️ ضد الكمبيوتر
+        </button>
+
+    </div>
+
+    <div class="developer">
+        المطور: طارق محمود
+    </div>
+
+</div>
+
+
+<!-- اختيار المستوى -->
+<div id="levelScreen" class="screen">
+
+    <div class="logo">
+        🖥️ الكمبيوتر
+    </div>
+
+    <div class="level-title">
+        اختار مستوى الكمبيوتر
+    </div>
+
+    <div class="level-buttons">
+
+        <button class="level-button" data-level="beginner">
+            🟢 مبتدئ
+            <small>حركات عشوائية وبسيطة</small>
+        </button>
+
+        <button class="level-button" data-level="easy">
+            🟡 سهل
+            <small>الكمبيوتر يحاول اللعب بشكل أفضل</small>
+        </button>
+
+        <button class="level-button" data-level="medium">
+            🟠 متوسط
+            <small>هجوم ودفاع</small>
+        </button>
+
+        <button class="level-button" data-level="hard">
+            🔴 صعب
+            <small>ذكاء قوي</small>
+        </button>
+
+        <button class="level-button" data-level="pro">
+            ☠️ لاعيب
+            <small>أقوى مستوى — خطأ نادر جدًا</small>
+        </button>
+
+    </div>
+
+    <button class="back-button" id="levelBack">
+        ← رجوع
+    </button>
+
+</div>
+
+
+<!-- أسماء اللاعبين -->
+<div id="nameScreen" class="screen">
+
+    <div class="logo">
+        👥 XO ARENA
+    </div>
+
+    <div class="subtitle">
+        اكتب أسماء اللاعبين
+    </div>
+
+    <div class="input-box">
+
+        <label>
+            👤 اسم اللاعب الأول
+        </label>
+
+        <input
+            id="nameM"
+            type="text"
+            maxlength="15"
+            placeholder="اكتب اسمك"
+            autocomplete="off">
+
+    </div>
+
+    <div class="input-box">
+
+        <label>
+            👤 اسم اللاعب الثاني
+        </label>
+
+        <input
+            id="nameT"
+            type="text"
+            maxlength="15"
+            placeholder="اكتب اسمك"
+            autocomplete="off">
+
+    </div>
+
+    <button class="start-button" id="startFriend">
+        🎮 ابدأ اللعب
+    </button>
+
+    <button class="back-button" id="friendBack">
+        ← رجوع
+    </button>
+
+</div>
+
+
+<!-- اللعبة -->
+<div id="gameScreen">
+
+    <div class="logo">
+        ⚡ XO ARENA
+    </div>
+
+    <div class="subtitle">
+        مواجهة XO
+    </div>
+
+    <div class="players">
+
+        <div class="player active" id="playerM">
+
+            <div class="avatar">
+                X
+            </div>
+
+            <div class="name" id="displayNameM">
+                اللاعب الأول
+            </div>
+
+            <div class="score" id="scoreM">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="player" id="playerT">
+
+            <div class="avatar">
+                O
+            </div>
+
+            <div class="name" id="displayNameT">
+                اللاعب الثاني
+            </div>
+
+            <div class="score" id="scoreT">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="status" id="status">
+        دور اللاعب الأول ❌
+    </div>
+
+    <div class="board" id="board"></div>
+
+    <div class="buttons">
+
+        <button class="control" id="newGameButton">
+            🎮 جولة جديدة
+        </button>
+
+        <button class="control reset-score" id="resetButton">
+            🗑️ تصفير النقاط
+        </button>
+
+    </div>
+
+    <button class="back-button" id="gameBack">
+        🏠 القائمة الرئيسية
+    </button>
+
+    <div class="developer">
+        المطور: طارق محمود
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- شاشة الفوز -->
+<div class="win-overlay" id="winOverlay">
+
+    <div class="win-box">
+
+        <div class="win-trophy">
+            🏆
+        </div>
+
+        <div class="win-title">
+            الفائز
+        </div>
+
+        <div class="win-name" id="winnerName">
+            اللاعب
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- شاشة التعادل -->
+<div class="draw-popup" id="drawPopup">
+
+    <div class="draw-box">
+
+        <div class="draw-icon">
+            🤝
+        </div>
+
+        <div class="draw-text">
+            تعادل!
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const homeScreen =
+    document.getElementById("homeScreen");
+
+const levelScreen =
+    document.getElementById("levelScreen");
+
+const nameScreen =
+    document.getElementById("nameScreen");
+
+const gameScreen =
+    document.getElementById("gameScreen");
+
+const friendMode =
+    document.getElementById("friendMode");
+
+const computerMode =
+    document.getElementById("computerMode");
+
+const levelBack =
+    document.getElementById("levelBack");
+
+const friendBack =
+    document.getElementById("friendBack");
+
+const gameBack =
+    document.getElementById("gameBack");
+
+const startFriend =
+    document.getElementById("startFriend");
+
+const board =
+    document.getElementById("board");
+
+const status =
+    document.getElementById("status");
+
+const nameM =
+    document.getElementById("nameM");
+
+const nameT =
+    document.getElementById("nameT");
+
+const displayNameM =
+    document.getElementById("displayNameM");
+
+const displayNameT =
+    document.getElementById("displayNameT");
+
+const scoreM =
+    document.getElementById("scoreM");
+
+const scoreT =
+    document.getElementById("scoreT");
+
+const playerM =
+    document.getElementById("playerM");
+
+const playerT =
+    document.getElementById("playerT");
+
+const newGameButton =
+    document.getElementById("newGameButton");
+
+const resetButton =
+    document.getElementById("resetButton");
+
+const winOverlay =
+    document.getElementById("winOverlay");
+
+const winnerName =
+    document.getElementById("winnerName");
+
+const drawPopup =
+    document.getElementById("drawPopup");
+
+
+let cells = [];
+
+let currentPlayer = "M";
+
+let gameOver = false;
+
+let gameMode = "friend";
+
+let computerLevel = "pro";
+
+let scores = {
+    M:0,
+    T:0
+};
+
+
+const winningPatterns = [
+
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+
+    [0,4,8],
+    [2,4,6]
+
+];
+
+
+/* =========================
+   الأصوات
+========================= */
+
+let audioContext = null;
+
+
+function getAudio(){
+
+    if(!audioContext){
+
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+    }
+
+    if(audioContext.state === "suspended"){
+        audioContext.resume();
+    }
+
+    return audioContext;
+
+}
+
+
+function playTone(
+    frequency,
+    duration,
+    type="sine",
+    volume=.045
+){
+
+    try{
+
+        const ctx = getAudio();
+
+        const oscillator =
+            ctx.createOscillator();
+
+        const gain =
+            ctx.createGain();
+
+        oscillator.type = type;
+
+        oscillator.frequency.setValueAtTime(
+            frequency,
+            ctx.currentTime
+        );
+
+        gain.gain.setValueAtTime(
+            volume,
+            ctx.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            ctx.currentTime + duration
+        );
+
+        oscillator.connect(gain);
+        gain.connect(ctx.destination);
+
+        oscillator.start();
+
+        oscillator.stop(
+            ctx.currentTime + duration
+        );
+
+    }catch(e){}
+
+}
+
+
+/* صوت الحركة */
+
+function playMoveSound(symbol){
+
+    if(symbol === "X"){
+
+        playTone(420,.08,"sine",.035);
+        setTimeout(
+            ()=>playTone(620,.07,"sine",.025),
+            35
+        );
+
+    }else{
+
+        playTone(280,.08,"sine",.035);
+        setTimeout(
+            ()=>playTone(380,.07,"sine",.025),
+            35
+        );
+
+    }
+
+}
+
+
+/* صوت الفوز */
+
+function playWinSound(){
+
+    try{
+
+        const notes =
+            [523,659,784,1046];
+
+        notes.forEach(
+            (note,index)=>{
+
+                setTimeout(
+                    ()=>playTone(
+                        note,
+                        .18,
+                        "sine",
+                        .055
+                    ),
+                    index*100
+                );
+
+            }
+        );
+
+    }catch(e){}
+
+}
+
+
+/* صوت التعادل */
+
+function playDrawSound(){
+
+    playTone(330,.15,"triangle",.04);
+
+    setTimeout(
+        ()=>playTone(260,.2,"triangle",.035),
+        120
+    );
+
+}
+
+
+/* =========================
+   إظهار شاشة
+========================= */
+
+function showScreen(screen){
+
+    homeScreen.style.display = "none";
+    levelScreen.style.display = "none";
+    nameScreen.style.display = "none";
+    gameScreen.style.display = "none";
+
+    screen.style.display = "block";
+
+}
+
+
+/* =========================
+   الوضع
+========================= */
+
+friendMode.onclick = function(){
+
+    playTone(500,.06);
+
+    showScreen(nameScreen);
+
+};
+
+
+computerMode.onclick = function(){
+
+    playTone(500,.06);
+
+    showScreen(levelScreen);
+
+};
+
+
+levelBack.onclick = function(){
+
+    showScreen(homeScreen);
+
+};
+
+
+friendBack.onclick = function(){
+
+    showScreen(homeScreen);
+
+};
+
+
+/* =========================
+   اختيار المستوى
+========================= */
+
+document
+.querySelectorAll(".level-button")
+.forEach(function(button){
+
+    button.onclick = function(){
+
+        computerLevel =
+            button.dataset.level;
+
+        gameMode = "computer";
+
+        startComputerGame();
+
+    };
+
+});
+
+
+/* =========================
+   ضد صاحبك
+========================= */
+
+startFriend.onclick = function(){
+
+    gameMode = "friend";
+
+    let p1 =
+        nameM.value.trim();
+
+    let p2 =
+        nameT.value.trim();
+
+
+    if(p1 === ""){
+        p1 = "اللاعب الأول";
+    }
+
+    if(p2 === ""){
+        p2 = "اللاعب الثاني";
+    }
+
+
+    displayNameM.textContent = p1;
+    displayNameT.textContent = p2;
+
+
+    scores.M = 0;
+    scores.T = 0;
+
+    updateScores();
+
+    showScreen(gameScreen);
+
+    startNewRound();
+
+};
+
+
+/* =========================
+   ضد الكمبيوتر
+========================= */
+
+function startComputerGame(){
+
+    displayNameM.textContent = "أنت";
+
+    displayNameT.textContent =
+        "الكمبيوتر 🖥️";
+
+
+    scores.M = 0;
+    scores.T = 0;
+
+    updateScores();
+
+    showScreen(gameScreen);
+
+    startNewRound();
+
+}
+
+
+/* =========================
+   إنشاء اللوحة
+========================= */
+
+function createBoard(){
+
+    board.innerHTML = "";
+
+    cells = [];
+
+
+    for(let i=0;i<9;i++){
+
+        const cell =
+            document.createElement("button");
+
+        cell.type = "button";
+
+        cell.className = "cell";
+
+        cell.onclick = function(){
+
+            makeMove(i);
+
+        };
+
+
+        board.appendChild(cell);
+
+        cells.push(cell);
+
+    }
+
+}
+
+
+/* =========================
+   جولة جديدة
+========================= */
+
+function startNewRound(){
+
+    hideWinner();
+
+    hideDraw();
+
+    currentPlayer = "M";
+
+    gameOver = false;
+
+    createBoard();
+
+    updateTurn();
+
+}
+
+
+/* =========================
+   الحركة
+========================= */
+
+function makeMove(index){
+
+    if(gameOver){
+        return;
+    }
+
+
+    if(
+        gameMode === "computer" &&
+        currentPlayer === "T"
+    ){
+        return;
+    }
+
+
+    const cell = cells[index];
+
+
+    if(
+        !cell ||
+        cell.textContent !== ""
+    ){
+        return;
+    }
+
+
+    if(currentPlayer === "M"){
+
+        cell.textContent = "X";
+
+        cell.classList.add("m");
+
+        playMoveSound("X");
+
+    }else{
+
+        cell.textContent = "O";
+
+        cell.classList.add("t");
+
+        playMoveSound("O");
+
+    }
+
+
+    cell.disabled = true;
+
+
+    const winner =
+        checkWinner();
+
+
+    if(winner){
+
+        finishRound(winner);
+
+        return;
+
+    }
+
+
+    if(isDraw()){
+
+        finishDraw();
+
+        return;
+
+    }
+
+
+    currentPlayer =
+        currentPlayer === "M"
+        ? "T"
+        : "M";
+
+
+    updateTurn();
+
+
+    if(
+        gameMode === "computer" &&
+        currentPlayer === "T" &&
+        !gameOver
+    ){
+
+        setTimeout(
+            computerMove,
+            350
+        );
+
+    }
+
+}
+
+
+/* =========================
+   فحص الفوز
+========================= */
+
+function checkWinner(){
+
+    for(
+        let i=0;
+        i<winningPatterns.length;
+        i++
+    ){
+
+        const p =
+            winningPatterns[i];
+
+        const a =
+            cells[p[0]].textContent;
+
+        const b =
+            cells[p[1]].textContent;
+
+        const c =
+            cells[p[2]].textContent;
+
+
+        if(
+            a !== "" &&
+            a === b &&
+            b === c
+        ){
+
+            return p;
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+/* =========================
+   التعادل
+========================= */
+
+function isDraw(){
+
+    return cells.every(
+        cell => cell.textContent !== ""
+    );
+
+}
+
+
+/* =========================
+   الفوز
+========================= */
+
+function finishRound(pattern){
+
+    gameOver = true;
+
+
+    pattern.forEach(function(index){
+
+        cells[index]
+            .classList
+            .add("winner");
+
+    });
+
+
+    scores[currentPlayer]++;
+
+    updateScores();
+
+
+    let winner;
+
+
+    if(currentPlayer === "M"){
+
+        winner =
+            displayNameM.textContent;
+
+        playerM.classList.add("active");
+        playerT.classList.remove("active");
+
+    }else{
+
+        winner =
+            displayNameT.textContent;
+
+        playerT.classList.add("active");
+        playerM.classList.remove("active");
+
+    }
+
+
+    status.textContent =
+        "🏆 " + winner + " فاز بالجولة!";
+
+
+    playWinSound();
+
+    showWinner(winner);
+
+    launchConfetti();
+
+}
+
+
+/* =========================
+   إظهار الفائز
+========================= */
+
+function showWinner(name){
+
+    winnerName.textContent = name;
+
+    winOverlay.classList.add("show");
+
+
+    setTimeout(
+        hideWinner,
+        2300
+    );
+
+}
+
+
+function hideWinner(){
+
+    winOverlay.classList.remove("show");
+
+}
+
+
+/* =========================
+   التعادل
+========================= */
+
+function finishDraw(){
+
+    gameOver = true;
+
+    playerM.classList.remove("active");
+    playerT.classList.remove("active");
+
+    status.textContent =
+        "🤝 تعادل!";
+
+    playDrawSound();
+
+    drawPopup.classList.add("show");
+
+
+    setTimeout(
+        hideDraw,
+        1500
+    );
+
+}
+
+
+function hideDraw(){
+
+    drawPopup.classList.remove("show");
+
+}
+
+
+/* =========================
+   المفرقعات
+========================= */
+
+function launchConfetti(){
+
+    const pieces = 90;
+
+    for(let i=0;i<pieces;i++){
+
+        const piece =
+            document.createElement("div");
+
+        piece.className = "confetti";
+
+
+        const size =
+            5 + Math.random()*8;
+
+        piece.style.width =
+            size + "px";
+
+        piece.style.height =
+            size*1.6 + "px";
+
+
+        piece.style.left =
+            Math.random()*100 + "vw";
+
+
+        piece.style.setProperty(
+            "--x",
+            (Math.random()*500-250)+"px"
+        );
+
+
+        piece.style.setProperty(
+            "--r",
+            (Math.random()*1440-720)+"deg"
+        );
+
+
+        piece.style.animationDuration =
+            (2.2 + Math.random()*2.2)+"s";
+
+
+        piece.style.animationDelay =
+            (Math.random()*.35)+"s";
+
+
+        piece.style.background =
+            [
+                "#ff3b3b",
+                "#35e06f",
+                "#ffd84d",
+                "#7c5cff",
+                "#36cfff",
+                "#ff66c4",
+                "#ffffff"
+            ][
+                Math.floor(Math.random()*7)
+            ];
+
+
+        document.body.appendChild(piece);
+
+
+        setTimeout(
+            ()=>piece.remove(),
+            5000
+        );
+
+    }
+
+}
+
+
+/* =========================
+   تحديث الدور
+========================= */
+
+function updateTurn(){
+
+    if(currentPlayer === "M"){
+
+        status.textContent =
+            "دور " +
+            displayNameM.textContent +
+            " ❌";
+
+        playerM.classList.add("active");
+        playerT.classList.remove("active");
+
+    }else{
+
+        status.textContent =
+            "دور " +
+            displayNameT.textContent +
+            " ⭕";
+
+        playerT.classList.add("active");
+        playerM.classList.remove("active");
+
+    }
+
+}
+
+
+/* =========================
+   النقاط
+========================= */
+
+function updateScores(){
+
+    scoreM.textContent = scores.M;
+
+    scoreT.textContent = scores.T;
+
+}
+
+
+/* =========================
+   الكمبيوتر
+========================= */
+
+function computerMove(){
+
+    if(
+        gameOver ||
+        currentPlayer !== "T"
+    ){
+        return;
+    }
+
+
+    let move;
+
+
+    if(computerLevel === "beginner"){
+
+        move = randomMove();
+
+    }
+
+    else if(computerLevel === "easy"){
+
+        move =
+            Math.random() < .55
+            ? bestSimpleMove()
+            : randomMove();
+
+    }
+
+    else if(computerLevel === "medium"){
+
+        move =
+            Math.random() < .8
+            ? bestSimpleMove()
+            : randomMove();
+
+    }
+
+    else if(computerLevel === "hard"){
+
+        move =
+            Math.random() < .95
+            ? minimaxRoot()
+            : randomMove();
+
+    }
+
+    else{
+
+        /* ☠️ لاعيب — خطأ 0.5% فقط */
+
+        move =
+            Math.random() < .005
+            ? randomMove()
+            : minimaxRoot();
+
+    }
+
+
+    if(
+        move === null ||
+        move === undefined
+    ){
+        return;
+    }
+
+
+    const cell =
+        cells[move];
+
+
+    if(!cell || cell.textContent !== ""){
+        return;
+    }
+
+
+    cell.textContent = "O";
+
+    cell.classList.add("t");
+
+    cell.disabled = true;
+
+    playMoveSound("O");
+
+
+    const winner =
+        checkWinner();
+
+
+    if(winner){
+
+        finishRound(winner);
+
+        return;
+
+    }
+
+
+    if(isDraw()){
+
+        finishDraw();
+
+        return;
+
+    }
+
+
+    currentPlayer = "M";
+
+    updateTurn();
+
+}
+
+
+/* =========================
+   عشوائي
+========================= */
+
+function randomMove(){
+
+    const available = [];
+
+
+    for(
+        let i=0;
+        i<cells.length;
+        i++
+    ){
+
+        if(
+            cells[i].textContent === ""
+        ){
+
+            available.push(i);
+
+        }
+
+    }
+
+
+    if(available.length === 0){
+        return null;
+    }
+
+
+    return available[
+        Math.floor(
+            Math.random()*available.length
+        )
+    ];
+
+}
+
+
+/* =========================
+   حركة بسيطة
+========================= */
+
+function bestSimpleMove(){
+
+    /* الفوز */
+
+    for(let i=0;i<9;i++){
+
+        if(
+            cells[i].textContent !== ""
+        ){
+            continue;
+        }
+
+
+        cells[i].textContent = "O";
+
+
+        if(checkWinner()){
+
+            cells[i].textContent = "";
+
+            return i;
+
+        }
+
+
+        cells[i].textContent = "";
+
+    }
+
+
+    /* منع اللاعب */
+
+    for(let i=0;i<9;i++){
+
+        if(
+            cells[i].textContent !== ""
+        ){
+            continue;
+        }
+
+
+        cells[i].textContent = "X";
+
+
+        if(checkWinner()){
+
+            cells[i].textContent = "";
+
+            return i;
+
+        }
+
+
+        cells[i].textContent = "";
+
+    }
+
+
+    /* الوسط */
+
+    if(
+        cells[4].textContent === ""
+    ){
+
+        return 4;
+
+    }
+
+
+    /* الزوايا */
+
+    const corners =
+        [0,2,6,8].filter(
+            i => cells[i].textContent === ""
+        );
+
+
+    if(corners.length > 0){
+
+        return corners[
+            Math.floor(
+                Math.random()*corners.length
+            )
+        ];
+
+    }
+
+
+    return randomMove();
+
+}
+
+
+/* =========================
+   MINIMAX
+========================= */
+
+function minimaxRoot(){
+
+    let bestScore = -Infinity;
+
+    let bestMove = null;
+
+
+    for(let i=0;i<9;i++){
+
+        if(
+            cells[i].textContent !== ""
+        ){
+            continue;
+        }
+
+
+        cells[i].textContent = "O";
+
+
+        const score =
+            minimax(false,0);
+
+
+        cells[i].textContent = "";
+
+
+        if(score > bestScore){
+
+            bestScore = score;
+
+            bestMove = i;
+
+        }
+
+    }
+
+
+    return bestMove;
+
+}
+
+
+function minimax(
+    isMaximizing,
+    depth
+){
+
+    const winner =
+        checkWinner();
+
+
+    if(winner){
+
+        const symbol =
+            cells[winner[0]].textContent;
+
+
+        if(symbol === "O"){
+            return 10-depth;
+        }
+
+
+        if(symbol === "X"){
+            return depth-10;
+        }
+
+    }
+
+
+    if(isDraw()){
+        return 0;
+    }
+
+
+    if(isMaximizing){
+
+        let bestScore = -Infinity;
+
+
+        for(let i=0;i<9;i++){
+
+            if(
+                cells[i].textContent !== ""
+            ){
+                continue;
+            }
+
+
+            cells[i].textContent = "O";
+
+
+            const score =
+                minimax(
+                    false,
+                    depth+1
+                );
+
+
+            cells[i].textContent = "";
+
+
+            bestScore =
+                Math.max(
+                    bestScore,
+                    score
+                );
+
+        }
+
+
+        return bestScore;
+
+    }
+
+
+    let bestScore = Infinity;
+
+
+    for(let i=0;i<9;i++){
+
+        if(
+            cells[i].textContent !== ""
+        ){
+            continue;
+        }
+
+
+        cells[i].textContent = "X";
+
+
+        const score =
+            minimax(
+                true,
+                depth+1
+            );
+
+
+        cells[i].textContent = "";
+
+
+        bestScore =
+            Math.min(
+                bestScore,
+                score
+            );
+
+    }
+
+
+    return bestScore;
+
+}
+
+
+/* =========================
+   الرجوع
+========================= */
+
+gameBack.onclick = function(){
+
+    gameOver = true;
+
+    hideWinner();
+    hideDraw();
+
+    showScreen(homeScreen);
+
+};
+
+
+/* =========================
+   جولة جديدة
+========================= */
+
+newGameButton.onclick = function(){
+
+    startNewRound();
+
+};
+
+
+/* =========================
+   تصفير النقاط
+========================= */
+
+resetButton.onclick = function(){
+
+    scores.M = 0;
+
+    scores.T = 0;
+
+    updateScores();
+
+    startNewRound();
+
+};
+
+
+/* =========================
+   Enter
+========================= */
+
+nameM.onkeydown = function(event){
+
+    if(event.key === "Enter"){
+
+        nameT.focus();
+
+    }
+
+};
+
+
+nameT.onkeydown = function(event){
+
+    if(event.key === "Enter"){
+
+        startFriend.click();
+
+    }
+
+};
+
+</script>
+
+</body>
+</html>
