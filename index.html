@@ -18,11 +18,31 @@ body{
     font-family:Arial,sans-serif;
     color:white;
     overflow-x:hidden;
+    position:relative;
 
     background:
-        radial-gradient(circle at 20% 20%,rgba(70,90,180,.22),transparent 30%),
-        radial-gradient(circle at 80% 80%,rgba(80,180,130,.12),transparent 30%),
-        linear-gradient(135deg,#070812,#11152b 50%,#070812);
+        linear-gradient(
+            180deg,
+            rgba(206,17,38,.20) 0%,
+            rgba(255,255,255,.055) 45%,
+            rgba(0,122,61,.20) 100%
+        ),
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(70,90,180,.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(80,180,130,.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #070812,
+            #11152b 50%,
+            #070812
+        );
 
     display:flex;
     justify-content:center;
@@ -30,45 +50,125 @@ body{
     padding:15px;
 }
 
-/* خلفية متحركة */
-body::before,
+/* 🇪🇬 ألوان علم مصر المتحركة */
+body::before{
+    content:"";
+    position:fixed;
+    inset:-30%;
+    z-index:-2;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            ellipse at 20% 20%,
+            rgba(206,17,38,.38),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 80% 45%,
+            rgba(255,255,255,.16),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 30% 85%,
+            rgba(0,122,61,.38),
+            transparent 35%
+        );
+
+    filter:blur(70px);
+
+    animation:
+        egyptMove 14s ease-in-out infinite alternate;
+}
+
+/* إضاءة متحركة إضافية */
 body::after{
     content:"";
     position:fixed;
-    width:420px;
-    height:420px;
+    width:520px;
+    height:520px;
     border-radius:50%;
-    filter:blur(90px);
-    opacity:.16;
+
+    top:-220px;
+    left:-200px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(206,17,38,.32),
+            transparent 68%
+        );
+
+    filter:blur(80px);
+    opacity:.7;
+
     pointer-events:none;
     z-index:-1;
+
+    animation:
+        redMove 10s ease-in-out infinite alternate;
 }
 
-body::before{
-    background:#596cff;
-    top:-180px;
-    left:-150px;
-    animation:floatOne 12s ease-in-out infinite alternate;
+@keyframes egyptMove{
+
+    0%{
+        transform:
+            translate(-8%, -5%)
+            rotate(0deg)
+            scale(1);
+    }
+
+    25%{
+        transform:
+            translate(5%, 7%)
+            rotate(3deg)
+            scale(1.08);
+    }
+
+    50%{
+        transform:
+            translate(-3%, 13%)
+            rotate(-2deg)
+            scale(1.15);
+    }
+
+    75%{
+        transform:
+            translate(10%, -2%)
+            rotate(4deg)
+            scale(1.05);
+    }
+
+    100%{
+        transform:
+            translate(-5%, 8%)
+            rotate(-3deg)
+            scale(1.12);
+    }
 }
 
-body::after{
-    background:#35e06f;
-    bottom:-200px;
-    right:-150px;
-    animation:floatTwo 15s ease-in-out infinite alternate;
+@keyframes redMove{
+
+    0%{
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    50%{
+        transform:
+            translate(250px,180px)
+            scale(1.25);
+    }
+
+    100%{
+        transform:
+            translate(80px,400px)
+            scale(.9);
+    }
 }
 
-@keyframes floatOne{
-    0%{transform:translate(0,0) scale(1)}
-    50%{transform:translate(100px,80px) scale(1.15)}
-    100%{transform:translate(30px,160px) scale(.95)}
-}
-
-@keyframes floatTwo{
-    0%{transform:translate(0,0) scale(1)}
-    50%{transform:translate(-100px,-70px) scale(1.12)}
-    100%{transform:translate(-30px,-150px) scale(.95)}
-}
+/* صندوق اللعبة */
 
 .game{
     position:relative;
@@ -78,9 +178,11 @@ body::after{
     border:1px solid rgba(255,255,255,.12);
     border-radius:28px;
 
-    background:rgba(15,18,38,.88);
+    background:rgba(15,18,38,.86);
 
-    box-shadow:0 25px 80px rgba(0,0,0,.55);
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.55),
+        0 0 60px rgba(206,17,38,.05);
 
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
@@ -394,6 +496,7 @@ input:focus{
 }
 
 /* شاشة الفوز */
+
 .win-overlay{
     position:fixed;
     inset:0;
@@ -443,14 +546,27 @@ input:focus{
     font-size:clamp(32px,9vw,58px);
     font-weight:900;
 
-    background:linear-gradient(90deg,#ffd84d,#fff,#7c5cff,#35e06f,#ffd84d);
-    background-size:300% auto;
+    background:
+        linear-gradient(
+            90deg,
+            #ce1126,
+            #ffffff,
+            #000000,
+            #ce1126,
+            #ffffff,
+            #007a3d,
+            #ce1126
+        );
+
+    background-size:500% auto;
 
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
 
-    animation:nameGlow 2s linear infinite;
+    animation:
+        nameGlow 3s linear infinite,
+        namePulse 1.8s ease-in-out infinite;
 }
 
 @keyframes overlayIn{
@@ -470,11 +586,39 @@ input:focus{
 }
 
 @keyframes nameGlow{
-    0%{background-position:0% center}
-    100%{background-position:300% center}
+
+    0%{
+        background-position:0% center;
+        filter:
+            drop-shadow(0 0 5px rgba(206,17,38,.5));
+    }
+
+    50%{
+        background-position:250% center;
+        filter:
+            drop-shadow(0 0 18px rgba(255,255,255,.7));
+    }
+
+    100%{
+        background-position:500% center;
+        filter:
+            drop-shadow(0 0 8px rgba(0,122,61,.6));
+    }
+}
+
+@keyframes namePulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.04);
+    }
 }
 
 /* المفرقعات */
+
 .confetti{
     position:fixed;
     width:8px;
@@ -487,18 +631,24 @@ input:focus{
 }
 
 @keyframes confettiFall{
+
     0%{
-        transform:translate3d(0,0,0) rotate(0deg);
+        transform:
+            translate3d(0,0,0)
+            rotate(0deg);
         opacity:1;
     }
 
     100%{
-        transform:translate3d(var(--x),110vh,0) rotate(var(--r));
+        transform:
+            translate3d(var(--x),110vh,0)
+            rotate(var(--r));
         opacity:0;
     }
 }
 
 /* تأثير التعادل */
+
 .draw-popup{
     position:fixed;
     inset:0;
@@ -538,6 +688,143 @@ input:focus{
     margin-top:8px;
 }
 
+/* المطور */
+
+.developer-link{
+    position:fixed;
+    bottom:14px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:20;
+}
+
+.developer-link a{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    padding:9px 18px;
+
+    border:1px solid rgba(0,255,170,.35);
+    border-radius:30px;
+
+    color:#00ffb3;
+    background:rgba(0,255,170,.06);
+
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:bold;
+    letter-spacing:.4px;
+
+    box-shadow:
+        0 0 8px rgba(0,255,170,.25),
+        inset 0 0 8px rgba(0,255,170,.08);
+
+    overflow:hidden;
+
+    transition:
+        .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+
+    animation:developerGlow 2.5s ease-in-out infinite;
+}
+
+/* لمعة تمر على اسم المطور */
+
+.developer-link a::after{
+    content:"";
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:70%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.55),
+            transparent
+        );
+
+    transform:skewX(-20deg);
+
+    animation:
+        developerShine 3s ease-in-out infinite;
+}
+
+.developer-link a:hover{
+    color:#fff;
+
+    border-color:#00ffb3;
+
+    background:rgba(0,255,170,.12);
+
+    transform:scale(1.08);
+
+    box-shadow:
+        0 0 10px #00ffb3,
+        0 0 25px rgba(0,255,170,.7),
+        0 0 45px rgba(0,255,170,.35);
+
+    text-shadow:
+        0 0 6px #00ffb3,
+        0 0 15px #00ffb3;
+}
+
+.whatsapp-icon{
+    font-size:18px;
+    filter:
+        drop-shadow(0 0 5px #25D366)
+        drop-shadow(0 0 10px rgba(37,211,102,.7));
+
+    animation:
+        whatsappPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes developerGlow{
+
+    0%,100%{
+        box-shadow:
+            0 0 8px rgba(0,255,170,.25),
+            inset 0 0 8px rgba(0,255,170,.08);
+    }
+
+    50%{
+        box-shadow:
+            0 0 14px rgba(0,255,170,.5),
+            0 0 28px rgba(0,255,170,.18),
+            inset 0 0 10px rgba(0,255,170,.12);
+    }
+}
+
+@keyframes developerShine{
+
+    0%{
+        left:-100%;
+    }
+
+    45%,100%{
+        left:140%;
+    }
+}
+
+@keyframes whatsappPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.18);
+    }
+}
+
 @media(max-width:400px){
 
     .game{
@@ -564,6 +851,11 @@ input:focus{
     .draw-box{
         margin:20px;
         padding:25px;
+    }
+
+    .developer-link a{
+        font-size:12px;
+        padding:8px 14px;
     }
 }
 </style>
@@ -1007,13 +1299,12 @@ function playTone(
 }
 
 
-/* صوت الحركة */
-
 function playMoveSound(symbol){
 
     if(symbol === "X"){
 
         playTone(420,.08,"sine",.035);
+
         setTimeout(
             ()=>playTone(620,.07,"sine",.025),
             35
@@ -1022,6 +1313,7 @@ function playMoveSound(symbol){
     }else{
 
         playTone(280,.08,"sine",.035);
+
         setTimeout(
             ()=>playTone(380,.07,"sine",.025),
             35
@@ -1031,8 +1323,6 @@ function playMoveSound(symbol){
 
 }
 
-
-/* صوت الفوز */
 
 function playWinSound(){
 
@@ -1061,8 +1351,6 @@ function playWinSound(){
 
 }
 
-
-/* صوت التعادل */
 
 function playDrawSound(){
 
@@ -1483,10 +1771,6 @@ function finishRound(pattern){
 }
 
 
-/* =========================
-   إظهار الفائز
-========================= */
-
 function showWinner(name){
 
     winnerName.textContent = name;
@@ -1508,10 +1792,6 @@ function hideWinner(){
 
 }
 
-
-/* =========================
-   التعادل
-========================= */
 
 function finishDraw(){
 
@@ -1827,8 +2107,6 @@ function randomMove(){
 
 function bestSimpleMove(){
 
-    /* الفوز */
-
     for(let i=0;i<9;i++){
 
         if(
@@ -1854,8 +2132,6 @@ function bestSimpleMove(){
 
     }
 
-
-    /* منع اللاعب */
 
     for(let i=0;i<9;i++){
 
@@ -1883,8 +2159,6 @@ function bestSimpleMove(){
     }
 
 
-    /* الوسط */
-
     if(
         cells[4].textContent === ""
     ){
@@ -1893,8 +2167,6 @@ function bestSimpleMove(){
 
     }
 
-
-    /* الزوايا */
 
     const corners =
         [0,2,6,8].filter(
@@ -2146,56 +2418,22 @@ nameT.onkeydown = function(event){
 };
 
 </script>
-<style>
-.developer-link{
-    position:fixed;
-    bottom:14px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:20;
-}
 
-.developer-link a{
-    display:inline-block;
-    padding:9px 18px;
-    border:1px solid rgba(0,255,170,.35);
-    border-radius:30px;
-    color:#00ffb3;
-    background:rgba(0,255,170,.06);
-    text-decoration:none;
-    font-size:14px;
-    font-weight:bold;
-    letter-spacing:.4px;
-    box-shadow:
-        0 0 8px rgba(0,255,170,.25),
-        inset 0 0 8px rgba(0,255,170,.08);
-    transition:
-        .3s ease,
-        transform .3s ease,
-        box-shadow .3s ease;
-}
 
-.developer-link a:hover{
-    color:#fff;
-    border-color:#00ffb3;
-    background:rgba(0,255,170,.12);
-    transform:scale(1.08);
-    box-shadow:
-        0 0 10px #00ffb3,
-        0 0 25px rgba(0,255,170,.7),
-        0 0 45px rgba(0,255,170,.35);
-    text-shadow:
-        0 0 6px #00ffb3,
-        0 0 15px #00ffb3;
-}
-</style>
-
+<!-- اسم المطور -->
 <div class="developer-link">
+
     <a href="https://wa.me/201101538691"
        target="_blank"
        rel="noopener">
-        👨‍💻 رقم المطور: 201101538691
+
+        <span class="whatsapp-icon">🟢</span>
+
+        <span>المطور: طارق محمود</span>
+
     </a>
+
 </div>
+
 </body>
-</html>
+    </html>
