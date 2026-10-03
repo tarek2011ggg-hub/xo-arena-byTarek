@@ -217,6 +217,22 @@ font-size:38px;
 font-weight:900
 }
 
+/* X أحمر */
+#avatarM{
+color:#ff3b3b;
+text-shadow:
+0 0 10px #ff3b3b,
+0 0 25px rgba(255,59,59,.8)
+}
+
+/* O أخضر */
+#avatarT{
+color:#35e06f;
+text-shadow:
+0 0 10px #35e06f,
+0 0 25px rgba(53,224,111,.8)
+}
+
 .name{
 font-weight:bold;
 margin-top:5px;
@@ -268,6 +284,7 @@ border-color:#7c5cff
 
 .cell:disabled{cursor:default}
 
+/* X أحمر دائمًا */
 .cell.m{
 color:#ff3b3b!important;
 text-shadow:
@@ -276,6 +293,7 @@ text-shadow:
 0 0 45px rgba(255,59,59,.8)
 }
 
+/* O أخضر دائمًا */
 .cell.t{
 color:#35e06f!important;
 text-shadow:
@@ -660,6 +678,16 @@ font-size:38px;
 font-weight:900
 }
 
+.skin-preview span:first-child{
+color:#ff3b3b;
+text-shadow:0 0 12px rgba(255,59,59,.7)
+}
+
+.skin-preview span:last-child{
+color:#35e06f;
+text-shadow:0 0 12px rgba(53,224,111,.7)
+}
+
 .skin-name{
 font-weight:900;
 margin:7px 0
@@ -966,21 +994,23 @@ transform:translateY(0) scale(1)
 }
 }
 
+/* زر الموسيقى */
+
 .music-button{
 position:fixed;
 top:14px;
 right:14px;
 z-index:100000;
-width:42px;
-height:42px;
+width:46px;
+height:46px;
 border:1px solid rgba(124,92,255,.35);
 border-radius:50%;
-background:rgba(15,18,38,.72);
+background:rgba(15,18,38,.82);
 color:#fff;
 backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);
 cursor:pointer;
-font-size:18px;
+font-size:20px;
 box-shadow:0 0 18px rgba(124,92,255,.16);
 transition:.2s
 }
@@ -991,8 +1021,16 @@ border-color:#7c5cff
 }
 
 .music-button.playing{
-box-shadow:0 0 20px rgba(53,224,111,.3);
+box-shadow:
+0 0 20px rgba(53,224,111,.3),
+0 0 35px rgba(53,224,111,.12);
 border-color:rgba(53,224,111,.5)
+}
+
+.music-button.muted{
+box-shadow:
+0 0 20px rgba(255,59,59,.18);
+border-color:rgba(255,59,59,.35)
 }
 </style>
 </head>
@@ -1001,27 +1039,52 @@ border-color:rgba(53,224,111,.5)
 
 <!-- شاشة التحميل -->
 <div id="loadingScreen">
+
 <div class="loading-content">
+
 <div class="loading-logo">
 XO<br>
 <span style="font-size:.58em;letter-spacing:8px">ARENA</span>
 </div>
-<div class="loading-sub">THE ULTIMATE XO BATTLE</div>
-<div class="loading-ring"></div>
-<div class="loading-dots">● ● ●</div>
-</div>
+
+<div class="loading-sub">
+THE ULTIMATE XO BATTLE
 </div>
 
-<button class="music-button" id="musicButton" aria-label="تشغيل أو إيقاف الموسيقى">🔇</button>
+<div class="loading-ring"></div>
+
+<div class="loading-dots">
+● ● ●
+</div>
+
+</div>
+
+</div>
+
+
+<!-- زر الصوت -->
+<button
+class="music-button muted"
+id="musicButton"
+aria-label="تشغيل أو إيقاف الموسيقى"
+title="تشغيل الموسيقى"
+>
+🔇
+</button>
+
 
 <div class="game">
 
 <!-- الرئيسية -->
 <div id="homeScreen" class="screen">
 
-<div class="logo">⚡ XO ARENA</div>
+<div class="logo">
+⚡ XO ARENA
+</div>
 
-<div class="subtitle">اختر طريقة اللعب</div>
+<div class="subtitle">
+اختر طريقة اللعب
+</div>
 
 <div class="coin-bar">
 🪙 <span class="coin-count" id="homeCoins">0</span> كوينز
@@ -1053,7 +1116,9 @@ XO<br>
 <!-- اختيار مستوى الكمبيوتر -->
 <div id="levelScreen" class="screen">
 
-<div class="logo">🖥️ الكمبيوتر</div>
+<div class="logo">
+🖥️ الكمبيوتر
+</div>
 
 <div class="level-title">
 اختار مستوى الكمبيوتر
@@ -1102,7 +1167,9 @@ XO<br>
 <!-- أسماء اللاعبين -->
 <div id="nameScreen" class="screen">
 
-<div class="logo">👥 XO ARENA</div>
+<div class="logo">
+👥 XO ARENA
+</div>
 
 <div class="subtitle">
 اكتب أسماء اللاعبين
@@ -1200,7 +1267,7 @@ O
 </div>
 
 <div class="status" id="status">
-دور اللاعب الأول ❌
+دور اللاعب الأول X
 </div>
 
 <div class="board" id="board"></div>
@@ -1351,9 +1418,15 @@ let cells=[];
 M = اللاعب
 T = الكمبيوتر / اللاعب الثاني
 
-M دائماً X
-T دائماً O
+ثابت:
+M = X
+T = O
 */
+
+const SYMBOLS={
+M:"X",
+T:"O"
+};
 
 let currentPlayer="M";
 
@@ -1509,22 +1582,16 @@ e.textContent=coins;
 }
 
 
-function getSkin(){
-
-return SKINS.find(
-s=>s.id===selected
-)||SKINS[0];
-
-}
-
-
 function refreshAvatars(){
 
-const s=getSkin();
+/*
+مهم:
+الـSkin لا يغيّر X/O داخل المباراة.
+*/
 
-$("avatarM").textContent=s.x;
+$("avatarM").textContent="X";
 
-$("avatarT").textContent=s.o;
+$("avatarT").textContent="O";
 
 }
 
@@ -1749,7 +1816,8 @@ function awardWinCoins(){
 if(
 gameMode!=="computer"||
 currentPlayer!=="M"
-)return;
+)
+return;
 
 const amount=
 REWARDS[computerLevel]||0;
@@ -2125,33 +2193,25 @@ cells.push(cell);
 
 
 /*
-هذه الدالة هي أهم تعديل:
-
 M = X
 T = O
 */
 
 function putSymbol(cell,player){
 
-const s=getSkin();
+const symbol=SYMBOLS[player];
 
-if(player==="M"){
+cell.textContent=symbol;
 
-cell.textContent=s.x;
+cell.classList.remove("m","t");
 
-cell.classList.add("m");
+cell.classList.add(
+player==="M"
+?"m"
+:"t"
+);
 
-cell.dataset.symbol="X";
-
-}else{
-
-cell.textContent=s.o;
-
-cell.classList.add("t");
-
-cell.dataset.symbol="O";
-
-}
+cell.dataset.symbol=symbol;
 
 cell.disabled=true;
 
@@ -2194,12 +2254,6 @@ const cell=cells[index];
 
 if(!cell||cell.dataset.symbol)
 return;
-
-
-/*
-اللاعب الحقيقي M
-وبالتالي يظهر X
-*/
 
 putSymbol(
 cell,
@@ -2455,12 +2509,10 @@ setTimeout(
 
 function updateTurn(){
 
-const s=getSkin();
-
 if(currentPlayer==="M"){
 
 status.textContent=
-"دور "+displayNameM.textContent+" "+s.x;
+"دور "+displayNameM.textContent+" X";
 
 playerM.classList.add("active");
 
@@ -2469,7 +2521,7 @@ playerT.classList.remove("active");
 }else{
 
 status.textContent=
-"دور "+displayNameT.textContent+" "+s.o;
+"دور "+displayNameT.textContent+" O";
 
 playerT.classList.add("active");
 
@@ -2563,10 +2615,7 @@ return;
 
 
 /*
-التعديل المهم:
-الكمبيوتر = T
-وبالتالي putSymbol
-سيضع O
+الكمبيوتر = T = O
 */
 
 putSymbol(
@@ -2638,10 +2687,6 @@ Math.random()*available.length
 
 function bestSimpleMove(){
 
-/*
-يحاول الكمبيوتر الفوز بـ O
-*/
-
 for(let i=0;i<9;i++){
 
 if(cells[i].dataset.symbol)
@@ -2662,9 +2707,7 @@ cells[i].dataset.symbol="";
 }
 
 
-/*
-يمنع اللاعب X من الفوز
-*/
+/* منع X */
 
 for(let i=0;i<9;i++){
 
@@ -2686,17 +2729,13 @@ cells[i].dataset.symbol="";
 }
 
 
-/*
-المربع الأوسط
-*/
+/* الوسط */
 
 if(!cells[4].dataset.symbol)
 return 4;
 
 
-/*
-الزوايا
-*/
+/* الزوايا */
 
 const corners=
 [0,2,6,8]
@@ -2773,9 +2812,7 @@ if(isDraw())
 return 0;
 
 
-/*
-الكمبيوتر O
-*/
+/* الكمبيوتر O */
 
 if(isMaximizing){
 
@@ -2803,9 +2840,7 @@ return bestScore;
 }
 
 
-/*
-اللاعب X
-*/
+/* اللاعب X */
 
 let bestScore=Infinity;
 
@@ -2897,6 +2932,8 @@ let musicTimer=null;
 
 let musicPlaying=false;
 
+let musicMuted=false;
+
 let musicStarted=false;
 
 const musicNotes=[
@@ -2911,10 +2948,7 @@ const musicNotes=[
 ];
 
 
-function startAmbientMusic(){
-
-if(musicPlaying)
-return;
+function createMusic(){
 
 try{
 
@@ -2923,7 +2957,7 @@ window.AudioContext||
 window.webkitAudioContext;
 
 if(!AC)
-return;
+return false;
 
 if(!musicCtx)
 musicCtx=new AC();
@@ -2938,11 +2972,13 @@ musicMaster=
 musicCtx.createGain();
 
 /*
-رفعنا صوت الموسيقى
-من 0.035 إلى 0.07
+الموسيقى أعلى من النسخة القديمة
 */
 
-musicMaster.gain.value=.07;
+musicMaster.gain.value=
+musicMuted
+?0
+:.09;
 
 musicMaster.connect(
 musicCtx.destination
@@ -2950,18 +2986,38 @@ musicCtx.destination
 
 }
 
+return true;
+
+}catch(e){
+
+return false;
+
+}
+
+}
+
+
+function startAmbientMusic(){
+
+if(musicMuted)
+return;
+
+if(musicPlaying)
+return;
+
+if(!createMusic())
+return;
 
 musicPlaying=true;
 
 musicStarted=true;
-
 
 let i=0;
 
 
 function playAmbientNote(){
 
-if(!musicPlaying)
+if(!musicPlaying||musicMuted)
 return;
 
 const osc=
@@ -2984,7 +3040,7 @@ musicCtx.currentTime
 );
 
 gain.gain.linearRampToValueAtTime(
-.22,
+.24,
 musicCtx.currentTime+.08
 );
 
@@ -3020,17 +3076,13 @@ $("musicButton");
 
 if(button){
 
-button.textContent="🎵";
+button.textContent="🔊";
 
-button.classList.add(
-"playing"
-);
+button.classList.add("playing");
 
-}
+button.classList.remove("muted");
 
-}catch(e){
-
-musicPlaying=false;
+button.title="كتم الموسيقى";
 
 }
 
@@ -3056,9 +3108,11 @@ if(button){
 
 button.textContent="🔇";
 
-button.classList.remove(
-"playing"
-);
+button.classList.remove("playing");
+
+button.classList.add("muted");
+
+button.title="تشغيل الموسيقى";
 
 }
 
@@ -3067,11 +3121,95 @@ button.classList.remove(
 
 function toggleAmbientMusic(){
 
-musicPlaying
-?stopAmbientMusic()
-:startAmbientMusic();
+if(musicMuted){
+
+musicMuted=false;
+
+if(musicMaster)
+musicMaster.gain.setTargetAtTime(
+.09,
+musicCtx.currentTime,
+.04
+);
+
+startAmbientMusic();
+
+}else{
+
+musicMuted=true;
+
+if(musicMaster&&musicCtx){
+
+musicMaster.gain.setTargetAtTime(
+0,
+musicCtx.currentTime,
+.04
+);
 
 }
+
+stopAmbientMusic();
+
+}
+
+}
+
+
+/*
+أول تفاعل مع الصفحة:
+الموسيقى تبدأ تلقائيًا.
+*/
+
+function startMusicAfterFirstTouch(){
+
+if(!musicStarted&&!musicMuted){
+
+startAmbientMusic();
+
+}
+
+document.removeEventListener(
+"pointerdown",
+startMusicAfterFirstTouch
+);
+
+document.removeEventListener(
+"touchstart",
+startMusicAfterFirstTouch
+);
+
+}
+
+
+/* زر الصوت */
+
+const musicButton=
+$("musicButton");
+
+if(musicButton){
+
+musicButton.onclick=
+e=>{
+
+e.stopPropagation();
+
+toggleAmbientMusic();
+
+};
+
+}
+
+
+/*
+لو ضغط على أي مكان في اللعبة،
+الموسيقى تبدأ تلقائيًا.
+*/
+
+document.addEventListener(
+"pointerdown",
+startMusicAfterFirstTouch,
+{once:true}
+);
 
 
 function hideLoadingScreen(){
@@ -3094,42 +3232,6 @@ setTimeout(
 );
 
 }
-
-
-const musicButton=
-$("musicButton");
-
-if(musicButton){
-
-musicButton.onclick=
-()=>toggleAmbientMusic();
-
-}
-
-
-function startMusicAfterFirstTouch(){
-
-if(!musicStarted)
-startAmbientMusic();
-
-document.removeEventListener(
-"pointerdown",
-startMusicAfterFirstTouch
-);
-
-document.removeEventListener(
-"touchstart",
-startMusicAfterFirstTouch
-);
-
-}
-
-
-document.addEventListener(
-"pointerdown",
-startMusicAfterFirstTouch,
-{once:true}
-);
 
 
 setTimeout(
