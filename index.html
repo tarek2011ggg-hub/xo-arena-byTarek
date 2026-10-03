@@ -4,37 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>XO ARENA</title>
+
 <style>
-* {
-box-sizing:border-box
-}
-html,body {
+*{box-sizing:border-box}
+
+html,body{
 margin:0;
 min-height:100%
 }
-body {
+
+body{
 min-height:100vh;
 font-family:Arial,sans-serif;
 color:#fff;
 overflow-x:hidden;
 position:relative;
-background:linear-gradient(180deg,rgba(206,17,38,.2),rgba(255,255,255,.055) 45%,rgba(0,122,61,.2)),radial-gradient(circle at 20% 20%,rgba(70,90,180,.2),transparent 30%),radial-gradient(circle at 80% 80%,rgba(80,180,130,.12),transparent 30%),linear-gradient(135deg,#070812,#11152b 50%,#070812);
+background:
+linear-gradient(180deg,rgba(206,17,38,.2),rgba(255,255,255,.055) 45%,rgba(0,122,61,.2)),
+radial-gradient(circle at 20% 20%,rgba(70,90,180,.2),transparent 30%),
+radial-gradient(circle at 80% 80%,rgba(80,180,130,.12),transparent 30%),
+linear-gradient(135deg,#070812,#11152b 50%,#070812);
 display:flex;
 justify-content:center;
 align-items:center;
 padding:15px
 }
-body:before {
+
+body:before{
 content:"";
 position:fixed;
 inset:-30%;
 z-index:-2;
 pointer-events:none;
-background:radial-gradient(ellipse at 20% 20%,rgba(206,17,38,.38),transparent 35%),radial-gradient(ellipse at 80% 45%,rgba(255,255,255,.16),transparent 35%),radial-gradient(ellipse at 30% 85%,rgba(0,122,61,.38),transparent 35%);
+background:
+radial-gradient(ellipse at 20% 20%,rgba(206,17,38,.38),transparent 35%),
+radial-gradient(ellipse at 80% 45%,rgba(255,255,255,.16),transparent 35%),
+radial-gradient(ellipse at 30% 85%,rgba(0,122,61,.38),transparent 35%);
 filter:blur(70px);
 animation:egyptMove 14s ease-in-out infinite alternate
 }
-body:after {
+
+body:after{
 content:"";
 position:fixed;
 width:520px;
@@ -49,68 +59,58 @@ pointer-events:none;
 z-index:-1;
 animation:redMove 10s ease-in-out infinite alternate
 }
-@keyframes egyptMove {
-0% {
-transform:translate(-8%,-5%) rotate(0) scale(1)
-}
-25% {
-transform:translate(5%,7%) rotate(3deg) scale(1.08)
-}
-50% {
-transform:translate(-3%,13%) rotate(-2deg) scale(1.15)
-}
-75% {
-transform:translate(10%,-2%) rotate(4deg) scale(1.05)
-}
-100% {
-transform:translate(-5%,8%) rotate(-3deg) scale(1.12)
+
+@keyframes egyptMove{
+0%{transform:translate(-8%,-5%) rotate(0) scale(1)}
+25%{transform:translate(5%,7%) rotate(3deg) scale(1.08)}
+50%{transform:translate(-3%,13%) rotate(-2deg) scale(1.15)}
+75%{transform:translate(10%,-2%) rotate(4deg) scale(1.05)}
+100%{transform:translate(-5%,8%) rotate(-3deg) scale(1.12)}
 }
 
-}
-@keyframes redMove {
-0% {
-transform:translate(0,0) scale(1)
-}
-50% {
-transform:translate(250px,180px) scale(1.25)
-}
-100% {
-transform:translate(80px,400px) scale(.9)
+@keyframes redMove{
+0%{transform:translate(0,0) scale(1)}
+50%{transform:translate(250px,180px) scale(1.25)}
+100%{transform:translate(80px,400px) scale(.9)}
 }
 
-}
-.game {
+.game{
 position:relative;
 width:min(94%,520px);
 padding:25px;
 border:1px solid rgba(255,255,255,.12);
 border-radius:28px;
 background:rgba(15,18,38,.86);
-box-shadow:0 25px 80px rgba(0,0,0,.55),0 0 60px rgba(206,17,38,.05);
+box-shadow:
+0 25px 80px rgba(0,0,0,.55),
+0 0 60px rgba(206,17,38,.05);
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px)
 }
-.logo {
+
+.logo{
 font-size:36px;
 font-weight:900;
 letter-spacing:3px;
 margin-bottom:8px;
 text-align:center
 }
-.subtitle {
+
+.subtitle{
 color:#9298b8;
 margin-bottom:25px;
 text-align:center
 }
-.screen {
-text-align:center
-}
-.mode-buttons,.level-buttons {
+
+.screen{text-align:center}
+
+.mode-buttons,.level-buttons{
 display:flex;
 flex-direction:column;
 gap:12px
 }
-.mode-button,.level-button {
+
+.mode-button,.level-button{
 width:100%;
 padding:17px;
 border:1px solid rgba(255,255,255,.1);
@@ -122,13 +122,15 @@ cursor:pointer;
 background:rgba(255,255,255,.06);
 transition:.2s
 }
-.mode-button:hover,.level-button:hover {
+
+.mode-button:hover,.level-button:hover{
 transform:translateY(-2px);
 border-color:#7c5cff;
 background:rgba(124,92,255,.15);
 box-shadow:0 8px 25px rgba(124,92,255,.2)
 }
-.back-button {
+
+.back-button{
 margin-top:15px;
 width:100%;
 padding:13px;
@@ -138,15 +140,16 @@ color:#bbbfd4;
 background:rgba(255,255,255,.06);
 cursor:pointer
 }
-.input-box {
-margin-bottom:15px
-}
-.input-box label {
+
+.input-box{margin-bottom:15px}
+
+.input-box label{
 display:block;
 margin-bottom:7px;
 font-weight:bold
 }
-input {
+
+input{
 width:100%;
 padding:15px;
 border:1px solid rgba(255,255,255,.12);
@@ -157,11 +160,13 @@ outline:none;
 font-size:16px;
 text-align:center
 }
-input:focus {
+
+input:focus{
 border-color:#7c5cff;
 box-shadow:0 0 15px rgba(124,92,255,.2)
 }
-.start-button {
+
+.start-button{
 width:100%;
 margin-top:10px;
 border:0;
@@ -174,22 +179,25 @@ cursor:pointer;
 background:linear-gradient(135deg,#7658ff,#9b5cff);
 transition:.2s
 }
-.start-button:hover {
+
+.start-button:hover{
 transform:translateY(-2px);
 box-shadow:0 10px 25px rgba(124,92,255,.25)
 }
-#gameScreen,#nameScreen,#levelScreen,#startScreen {
+
+#gameScreen,#nameScreen,#levelScreen,#startScreen{
 display:none
 }
-#homeScreen {
-display:block
-}
-.players {
+
+#homeScreen{display:block}
+
+.players{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px
 }
-.player {
+
+.player{
 padding:15px;
 border-radius:18px;
 background:rgba(255,255,255,.05);
@@ -197,42 +205,49 @@ border:1px solid rgba(255,255,255,.08);
 text-align:center;
 transition:.25s
 }
-.player.active {
+
+.player.active{
 border-color:#7c5cff;
 box-shadow:0 0 25px rgba(124,92,255,.25);
 transform:translateY(-3px)
 }
-.avatar {
+
+.avatar{
 font-size:38px;
 font-weight:900
 }
-.name {
+
+.name{
 font-weight:bold;
 margin-top:5px;
 overflow:hidden;
 text-overflow:ellipsis;
 white-space:nowrap
 }
-.score {
+
+.score{
 font-size:27px;
 font-weight:900;
 margin-top:5px
 }
-.status {
+
+.status{
 text-align:center;
 margin:22px 0;
 font-size:18px;
 font-weight:bold;
 min-height:22px
 }
-.board {
+
+.board{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:12px;
 max-width:390px;
 margin:auto
 }
-.cell {
+
+.cell{
 aspect-ratio:1;
 border:1px solid rgba(255,255,255,.1);
 border-radius:20px;
@@ -244,42 +259,49 @@ cursor:pointer;
 transition:.18s;
 opacity:1!important
 }
-.cell:hover:not(:disabled) {
+
+.cell:hover:not(:disabled){
 transform:scale(1.04);
 background:rgba(124,92,255,.15);
 border-color:#7c5cff
 }
-.cell:disabled {
-cursor:default
-}
-.cell.m {
+
+.cell:disabled{cursor:default}
+
+.cell.m{
 color:#ff3b3b!important;
-text-shadow:0 0 10px #ff3b3b,0 0 25px #ff3b3b,0 0 45px rgba(255,59,59,.8)
+text-shadow:
+0 0 10px #ff3b3b,
+0 0 25px #ff3b3b,
+0 0 45px rgba(255,59,59,.8)
 }
-.cell.t {
+
+.cell.t{
 color:#35e06f!important;
-text-shadow:0 0 10px #35e06f,0 0 25px #35e06f,0 0 45px rgba(53,224,111,.8)
+text-shadow:
+0 0 10px #35e06f,
+0 0 25px #35e06f,
+0 0 45px rgba(53,224,111,.8)
 }
-.cell.winner {
+
+.cell.winner{
 animation:win .7s infinite alternate;
 border-color:#ffd84d;
 background:rgba(255,216,77,.12)
 }
-@keyframes win {
-from {
-transform:scale(1)
-}
-to {
-transform:scale(1.07)
+
+@keyframes win{
+from{transform:scale(1)}
+to{transform:scale(1.07)}
 }
 
-}
-.buttons {
+.buttons{
 display:flex;
 gap:10px;
 margin-top:22px
 }
-.control {
+
+.control{
 flex:1;
 border:0;
 padding:14px;
@@ -290,27 +312,32 @@ cursor:pointer;
 color:#fff;
 background:linear-gradient(135deg,#7658ff,#9b5cff)
 }
-.reset-score {
+
+.reset-score{
 background:rgba(255,255,255,.08)
 }
-.developer {
+
+.developer{
 text-align:center;
 color:#777d9d;
 font-size:13px;
 margin-top:20px
 }
-.level-title {
+
+.level-title{
 font-size:22px;
 font-weight:bold;
 margin-bottom:18px
 }
-.level-button small {
+
+.level-button small{
 display:block;
 color:#9298b8;
 margin-top:5px;
 font-weight:normal
 }
-.win-overlay,.draw-popup,.shop-overlay {
+
+.win-overlay,.draw-popup,.shop-overlay{
 position:fixed;
 inset:0;
 display:none;
@@ -321,83 +348,79 @@ background:rgba(3,5,15,.38);
 backdrop-filter:blur(5px);
 -webkit-backdrop-filter:blur(5px)
 }
-.win-overlay.show,.draw-popup.show,.shop-overlay.show {
+
+.win-overlay.show,.draw-popup.show,.shop-overlay.show{
 display:flex
 }
-.win-box,.draw-box {
+
+.win-box,.draw-box{
 padding:30px 45px;
 border-radius:28px;
 text-align:center;
 background:rgba(15,18,38,.92);
 border:1px solid rgba(255,255,255,.16);
-box-shadow:0 0 40px rgba(124,92,255,.3),0 25px 80px rgba(0,0,0,.6);
+box-shadow:
+0 0 40px rgba(124,92,255,.3),
+0 25px 80px rgba(0,0,0,.6);
 animation:winnerPop .7s cubic-bezier(.17,.89,.32,1.3)
 }
-.win-trophy {
+
+.win-trophy{
 font-size:55px;
 animation:trophy .8s infinite alternate
 }
-.win-title {
+
+.win-title{
 font-size:22px;
 color:#aaaec5;
 margin-top:5px
 }
-.win-name {
+
+.win-name{
 margin-top:8px;
 font-size:clamp(32px,9vw,58px);
 font-weight:900;
-background:linear-gradient(90deg,#ce1126,#fff,#000,#ce1126,#fff,#007a3d,#ce1126);
+background:
+linear-gradient(
+90deg,
+#ce1126,
+#fff,
+#000,
+#ce1126,
+#fff,
+#007a3d,
+#ce1126
+);
 background-size:500% auto;
 -webkit-background-clip:text;
 background-clip:text;
 color:transparent;
 animation:nameGlow 3s linear infinite,namePulse 1.8s ease-in-out infinite
 }
-@keyframes winnerPop {
-0% {
-transform:scale(.4);
-opacity:0
-}
-70% {
-transform:scale(1.08)
-}
-100% {
-transform:scale(1);
-opacity:1
+
+@keyframes winnerPop{
+0%{transform:scale(.4);opacity:0}
+70%{transform:scale(1.08)}
+100%{transform:scale(1);opacity:1}
 }
 
-}
-@keyframes trophy {
-from {
-transform:translateY(0) rotate(-4deg)
-}
-to {
-transform:translateY(-8px) rotate(4deg)
+@keyframes trophy{
+from{transform:translateY(0) rotate(-4deg)}
+to{transform:translateY(-8px) rotate(4deg)}
 }
 
-}
-@keyframes nameGlow {
-0% {
-background-position:0%
-}
-50% {
-background-position:250%
-}
-100% {
-background-position:500%
+@keyframes nameGlow{
+0%{background-position:0%}
+50%{background-position:250%}
+100%{background-position:500%}
 }
 
-}
-@keyframes namePulse {
-0%,100% {
-transform:scale(1)
-}
-50% {
-transform:scale(1.04)
+@keyframes namePulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.04)}
 }
 
-}
-.confetti {
+.confetti{
 position:fixed;
 width:8px;
 height:14px;
@@ -406,36 +429,37 @@ z-index:1100;
 pointer-events:none;
 animation:confettiFall linear forwards
 }
-@keyframes confettiFall {
-0% {
+
+@keyframes confettiFall{
+0%{
 transform:translate3d(0,0,0) rotate(0);
 opacity:1
 }
-100% {
+100%{
 transform:translate3d(var(--x),110vh,0) rotate(var(--r));
 opacity:0
 }
+}
 
-}
-.draw-box {
-border-radius:25px
-}
-.draw-icon {
-font-size:55px
-}
-.draw-text {
+.draw-box{border-radius:25px}
+
+.draw-icon{font-size:55px}
+
+.draw-text{
 font-size:27px;
 font-weight:900;
 margin-top:8px
 }
-.developer-link {
+
+.developer-link{
 position:fixed;
 bottom:14px;
 left:50%;
 transform:translateX(-50%);
 z-index:20
 }
-.developer-link a {
+
+.developer-link a{
 position:relative;
 display:inline-flex;
 align-items:center;
@@ -453,59 +477,74 @@ overflow:hidden;
 transition:.3s ease;
 animation:developerGlow 2.5s ease-in-out infinite
 }
-.developer-link a:after {
+
+.developer-link a:after{
 content:"";
 position:absolute;
 top:0;
 left:-100%;
 width:70%;
 height:100%;
-background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.55),
+transparent
+);
 transform:skewX(-20deg);
 animation:developerShine 3s ease-in-out infinite
 }
-.developer-link a:hover {
+
+.developer-link a:hover{
 color:#fff;
 border-color:#00ffb3;
 background:rgba(0,255,170,.12);
 transform:scale(1.08);
-box-shadow:0 0 10px #00ffb3,0 0 25px rgba(0,255,170,.7),0 0 45px rgba(0,255,170,.35);
-text-shadow:0 0 6px #00ffb3,0 0 15px #00ffb3
+box-shadow:
+0 0 10px #00ffb3,
+0 0 25px rgba(0,255,170,.7),
+0 0 45px rgba(0,255,170,.35);
+text-shadow:
+0 0 6px #00ffb3,
+0 0 15px #00ffb3
 }
-.whatsapp-icon {
+
+.whatsapp-icon{
 font-size:18px;
-filter:drop-shadow(0 0 5px #25D366) drop-shadow(0 0 10px rgba(37,211,102,.7));
+filter:
+drop-shadow(0 0 5px #25D366)
+drop-shadow(0 0 10px rgba(37,211,102,.7));
 animation:whatsappPulse 1.8s ease-in-out infinite
 }
-@keyframes developerGlow {
-0%,100% {
-box-shadow:0 0 8px rgba(0,255,170,.25),inset 0 0 8px rgba(0,255,170,.08)
+
+@keyframes developerGlow{
+0%,100%{
+box-shadow:
+0 0 8px rgba(0,255,170,.25),
+inset 0 0 8px rgba(0,255,170,.08)
 }
-50% {
-box-shadow:0 0 14px rgba(0,255,170,.5),0 0 28px rgba(0,255,170,.18),inset 0 0 10px rgba(0,255,170,.12)
+50%{
+box-shadow:
+0 0 14px rgba(0,255,170,.5),
+0 0 28px rgba(0,255,170,.18),
+inset 0 0 10px rgba(0,255,170,.12)
+}
 }
 
-}
-@keyframes developerShine {
-0% {
-left:-100%
-}
-45%,100% {
-left:140%
+@keyframes developerShine{
+0%{left:-100%}
+45%,100%{left:140%}
 }
 
-}
-@keyframes whatsappPulse {
-0%,100% {
-transform:scale(1)
-}
-50% {
-transform:scale(1.18)
+@keyframes whatsappPulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.18)}
 }
 
-}
-/* العملة والمتجر */
-.coin-bar {
+/* العملات والمتجر */
+
+.coin-bar{
 display:flex;
 align-items:center;
 justify-content:center;
@@ -516,35 +555,48 @@ width:max-content;
 max-width:100%;
 border:1px solid rgba(255,216,77,.35);
 border-radius:30px;
-background:linear-gradient(135deg,rgba(255,216,77,.1),rgba(255,255,255,.04));
+background:
+linear-gradient(
+135deg,
+rgba(255,216,77,.1),
+rgba(255,255,255,.04)
+);
 box-shadow:0 0 18px rgba(255,216,77,.12);
 font-weight:900
 }
-.coin-icon {
-font-size:22px
-}
-.coin-count {
+
+.coin-icon{font-size:22px}
+
+.coin-count{
 color:#ffd84d;
 font-size:20px
 }
-.shop-button {
+
+.shop-button{
 width:100%;
 margin-bottom:12px;
 padding:14px;
 border:1px solid rgba(255,216,77,.35);
 border-radius:15px;
-background:linear-gradient(135deg,rgba(255,216,77,.12),rgba(255,159,28,.07));
+background:
+linear-gradient(
+135deg,
+rgba(255,216,77,.12),
+rgba(255,159,28,.07)
+);
 color:#fff;
 font-weight:900;
 font-size:16px;
 cursor:pointer;
 transition:.2s
 }
-.shop-button:hover {
+
+.shop-button:hover{
 transform:translateY(-2px);
 box-shadow:0 8px 25px rgba(255,216,77,.15)
 }
-.shop-box {
+
+.shop-box{
 width:min(94%,500px);
 max-height:85vh;
 overflow:auto;
@@ -554,17 +606,20 @@ background:rgba(15,18,38,.96);
 border:1px solid rgba(255,255,255,.15);
 box-shadow:0 25px 80px rgba(0,0,0,.65)
 }
-.shop-head {
+
+.shop-head{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:16px
 }
-.shop-title {
+
+.shop-title{
 font-size:25px;
 font-weight:900
 }
-.close-shop {
+
+.close-shop{
 border:0;
 border-radius:12px;
 padding:9px 13px;
@@ -573,12 +628,14 @@ color:#fff;
 font-size:20px;
 cursor:pointer
 }
-.shop-grid {
+
+.shop-grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px
 }
-.skin {
+
+.skin{
 padding:15px;
 border:1px solid rgba(255,255,255,.1);
 border-radius:18px;
@@ -586,12 +643,14 @@ background:rgba(255,255,255,.035);
 text-align:center;
 transition:.2s
 }
-.skin:hover {
+
+.skin:hover{
 transform:translateY(-3px);
 border-color:rgba(124,92,255,.55);
 box-shadow:0 12px 30px rgba(124,92,255,.12)
 }
-.skin-preview {
+
+.skin-preview{
 height:75px;
 display:flex;
 align-items:center;
@@ -600,16 +659,19 @@ gap:18px;
 font-size:38px;
 font-weight:900
 }
-.skin-name {
+
+.skin-name{
 font-weight:900;
 margin:7px 0
 }
-.skin-price {
+
+.skin-price{
 color:#ffd84d;
 font-weight:bold;
 margin-bottom:9px
 }
-.skin button {
+
+.skin button{
 width:100%;
 padding:10px;
 border:0;
@@ -619,15 +681,17 @@ color:#fff;
 font-weight:bold;
 cursor:pointer
 }
-.skin button.owned {
-background:#00a86b
-}
-.skin button.selected {
+
+.skin button.owned{background:#00a86b}
+
+.skin button.selected{
 background:#ffd84d;
 color:#17120a
 }
+
 /* مكافأة الفوز */
-.reward {
+
+.reward{
 position:fixed;
 top:18px;
 left:50%;
@@ -639,43 +703,48 @@ padding:13px 25px;
 border:1px solid rgba(255,216,77,.6);
 border-radius:24px;
 background:rgba(23,20,45,.96);
-box-shadow:0 0 30px rgba(255,216,77,.35),0 15px 50px rgba(0,0,0,.55);
+box-shadow:
+0 0 30px rgba(255,216,77,.35),
+0 15px 50px rgba(0,0,0,.55);
 animation:rewardIn 2.7s cubic-bezier(.2,.8,.2,1) forwards
 }
-.reward .big {
+
+.reward .big{
 font-size:32px;
 font-weight:900;
 color:#ffd84d;
 text-shadow:0 0 15px rgba(255,216,77,.9)
 }
-.reward .small {
+
+.reward .small{
 font-size:13px;
 color:#fff;
 margin-top:3px
 }
-@keyframes rewardIn {
-0% {
+
+@keyframes rewardIn{
+0%{
 transform:translateX(-50%) translateY(-160px) scale(.7);
 opacity:0
 }
-12% {
+12%{
 transform:translateX(-50%) translateY(0) scale(1.1);
 opacity:1
 }
-22% {
+22%{
 transform:translateX(-50%) translateY(0) scale(1)
 }
-72% {
+72%{
 transform:translateX(-50%) translateY(7px) scale(1);
 opacity:1
 }
-100% {
+100%{
 transform:translateX(-50%) translateY(-35px) scale(.95);
 opacity:0
 }
-
 }
-.coin-fly {
+
+.coin-fly{
 position:fixed;
 top:-35px;
 z-index:1999;
@@ -684,37 +753,33 @@ pointer-events:none;
 animation:coinFly 1.7s ease-in forwards;
 text-shadow:0 0 10px rgba(255,216,77,.8)
 }
-@keyframes coinFly {
-0% {
+
+@keyframes coinFly{
+0%{
 transform:translate(0,0) rotate(0) scale(.5);
 opacity:0
 }
-12% {
-opacity:1
-}
-100% {
+12%{opacity:1}
+100%{
 transform:translate(var(--dx),105vh) rotate(720deg) scale(1.15);
 opacity:0
 }
-
 }
-.coin-pulse {
+
+.coin-pulse{
 animation:coinPulse .55s ease
 }
-@keyframes coinPulse {
-0% {
-transform:scale(1)
-}
-45% {
+
+@keyframes coinPulse{
+0%{transform:scale(1)}
+45%{
 transform:scale(1.25);
 text-shadow:0 0 20px rgba(255,216,77,.95)
 }
-100% {
-transform:scale(1)
+100%{transform:scale(1)}
 }
 
-}
-.toast {
+.toast{
 position:fixed;
 left:50%;
 bottom:85px;
@@ -728,828 +793,2356 @@ box-shadow:0 12px 35px rgba(0,0,0,.45);
 font-weight:bold;
 animation:toastIn 2.2s ease forwards
 }
-@keyframes toastIn {
-0% {
+
+@keyframes toastIn{
+0%{
 opacity:0;
 transform:translateX(-50%) translateY(25px)
 }
-12%,80% {
+12%,80%{
 opacity:1;
 transform:translateX(-50%) translateY(0)
 }
-100% {
+100%{
 opacity:0;
 transform:translateX(-50%) translateY(-10px)
 }
+}
 
-}
-@media(max-width:400px) {
-.game {
-padding:18px
-}
-.logo {
-font-size:28px
-}
-.board {
-gap:8px
-}
-.cell {
-border-radius:15px
-}
-.buttons {
-flex-direction:column
-}
-.win-box,.draw-box {
+@media(max-width:400px){
+
+.game{padding:18px}
+
+.logo{font-size:28px}
+
+.board{gap:8px}
+
+.cell{border-radius:15px}
+
+.buttons{flex-direction:column}
+
+.win-box,.draw-box{
 margin:20px;
 padding:25px
 }
-.developer-link a {
+
+.developer-link a{
 font-size:12px;
 padding:8px 14px
 }
-.shop-grid {
-gap:9px
-}
-.skin {
-padding:11px
-}
-.skin-preview {
+
+.shop-grid{gap:9px}
+
+.skin{padding:11px}
+
+.skin-preview{
 font-size:31px;
 gap:12px
 }
-.shop-title {
-font-size:21px
+
+.shop-title{font-size:21px}
 }
 
+/* شاشة التحميل */
+
+#loadingScreen{
+position:fixed;
+inset:0;
+z-index:99999;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+background:
+radial-gradient(
+circle at 50% 45%,
+rgba(124,92,255,.22),
+transparent 32%
+),
+linear-gradient(
+135deg,
+#050611,
+#0b1024 50%,
+#050611
+);
+transition:opacity .7s ease,visibility .7s ease
 }
 
-/* =========================
-   شاشة التحميل + لوجو XO ARENA
-========================= */
-#loadingScreen{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 50% 45%,rgba(124,92,255,.22),transparent 32%),linear-gradient(135deg,#050611,#0b1024 50%,#050611);transition:opacity .7s ease,visibility .7s ease}
-#loadingScreen.hide{opacity:0;visibility:hidden;pointer-events:none}
-.loading-content{text-align:center;position:relative;padding:30px}
-.loading-logo{font-size:clamp(46px,15vw,82px);font-weight:1000;letter-spacing:5px;line-height:1;background:linear-gradient(90deg,#ff315c,#ffcf33,#7c5cff,#00e5ff,#35e06f,#ff315c);background-size:500% auto;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 35px rgba(124,92,255,.28);animation:loadingLogo 3s linear infinite,loadingPulse 1.8s ease-in-out infinite}
-.loading-sub{margin-top:14px;color:#aeb5d5;font-size:14px;letter-spacing:3px}
-.loading-ring{width:58px;height:58px;margin:28px auto 0;border:3px solid rgba(255,255,255,.1);border-top-color:#7c5cff;border-right-color:#00e5ff;border-radius:50%;animation:loadingSpin .9s linear infinite;box-shadow:0 0 25px rgba(124,92,255,.25)}
-.loading-dots{margin-top:13px;color:#fff;letter-spacing:5px;font-weight:bold}
-@keyframes loadingLogo{0%{background-position:0% 50%}100%{background-position:500% 50%}}
-@keyframes loadingPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 5px rgba(124,92,255,.15))}50%{transform:scale(1.045);filter:drop-shadow(0 0 18px rgba(124,92,255,.42))}}
-@keyframes loadingSpin{to{transform:rotate(360deg)}}
-body.app-ready .game{animation:gameAppear .7s ease both}
-@keyframes gameAppear{from{opacity:0;transform:translateY(15px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-.music-button{position:fixed;top:14px;right:14px;z-index:100000;width:42px;height:42px;border:1px solid rgba(124,92,255,.35);border-radius:50%;background:rgba(15,18,38,.72);color:#fff;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);cursor:pointer;font-size:18px;box-shadow:0 0 18px rgba(124,92,255,.16);transition:.2s}
-.music-button:hover{transform:scale(1.08);border-color:#7c5cff}
-.music-button.playing{box-shadow:0 0 20px rgba(53,224,111,.3);border-color:rgba(53,224,111,.5)}
+#loadingScreen.hide{
+opacity:0;
+visibility:hidden;
+pointer-events:none
+}
+
+.loading-content{
+text-align:center;
+position:relative;
+padding:30px
+}
+
+.loading-logo{
+font-size:clamp(46px,15vw,82px);
+font-weight:1000;
+letter-spacing:5px;
+line-height:1;
+background:
+linear-gradient(
+90deg,
+#ff315c,
+#ffcf33,
+#7c5cff,
+#00e5ff,
+#35e06f,
+#ff315c
+);
+background-size:500% auto;
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+text-shadow:0 0 35px rgba(124,92,255,.28);
+animation:
+loadingLogo 3s linear infinite,
+loadingPulse 1.8s ease-in-out infinite
+}
+
+.loading-sub{
+margin-top:14px;
+color:#aeb5d5;
+font-size:14px;
+letter-spacing:3px
+}
+
+.loading-ring{
+width:58px;
+height:58px;
+margin:28px auto 0;
+border:3px solid rgba(255,255,255,.1);
+border-top-color:#7c5cff;
+border-right-color:#00e5ff;
+border-radius:50%;
+animation:loadingSpin .9s linear infinite;
+box-shadow:0 0 25px rgba(124,92,255,.25)
+}
+
+.loading-dots{
+margin-top:13px;
+color:#fff;
+letter-spacing:5px;
+font-weight:bold
+}
+
+@keyframes loadingLogo{
+0%{background-position:0% 50%}
+100%{background-position:500% 50%}
+}
+
+@keyframes loadingPulse{
+0%,100%{
+transform:scale(1);
+filter:drop-shadow(0 0 5px rgba(124,92,255,.15))
+}
+50%{
+transform:scale(1.045);
+filter:drop-shadow(0 0 18px rgba(124,92,255,.42))
+}
+}
+
+@keyframes loadingSpin{
+to{transform:rotate(360deg)}
+}
+
+body.app-ready .game{
+animation:gameAppear .7s ease both
+}
+
+@keyframes gameAppear{
+from{
+opacity:0;
+transform:translateY(15px) scale(.98)
+}
+to{
+opacity:1;
+transform:translateY(0) scale(1)
+}
+}
+
+.music-button{
+position:fixed;
+top:14px;
+right:14px;
+z-index:100000;
+width:42px;
+height:42px;
+border:1px solid rgba(124,92,255,.35);
+border-radius:50%;
+background:rgba(15,18,38,.72);
+color:#fff;
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+cursor:pointer;
+font-size:18px;
+box-shadow:0 0 18px rgba(124,92,255,.16);
+transition:.2s
+}
+
+.music-button:hover{
+transform:scale(1.08);
+border-color:#7c5cff
+}
+
+.music-button.playing{
+box-shadow:0 0 20px rgba(53,224,111,.3);
+border-color:rgba(53,224,111,.5)
+}
 </style>
 </head>
+
 <body>
+
 <!-- شاشة التحميل -->
 <div id="loadingScreen">
 <div class="loading-content">
-<div class="loading-logo">XO<br><span style="font-size:.58em;letter-spacing:8px">ARENA</span></div>
+<div class="loading-logo">
+XO<br>
+<span style="font-size:.58em;letter-spacing:8px">ARENA</span>
+</div>
 <div class="loading-sub">THE ULTIMATE XO BATTLE</div>
 <div class="loading-ring"></div>
 <div class="loading-dots">● ● ●</div>
 </div>
 </div>
+
 <button class="music-button" id="musicButton" aria-label="تشغيل أو إيقاف الموسيقى">🔇</button>
 
 <div class="game">
+
+<!-- الرئيسية -->
 <div id="homeScreen" class="screen">
+
 <div class="logo">⚡ XO ARENA</div>
+
 <div class="subtitle">اختر طريقة اللعب</div>
-<div class="coin-bar">🪙 <span class="coin-count" id="homeCoins">0</span> كوينز</div>
-<button class="shop-button" id="shopButton">🛒 متجر الأشكال</button>
+
+<div class="coin-bar">
+🪙 <span class="coin-count" id="homeCoins">0</span> كوينز
+</div>
+
+<button class="shop-button" id="shopButton">
+🛒 متجر الأشكال
+</button>
+
 <div class="mode-buttons">
-<button class="mode-button" id="friendMode">👥 ضد صاحبك</button>
-<button class="mode-button" id="computerMode">🖥️ ضد الكمبيوتر</button>
+
+<button class="mode-button" id="friendMode">
+👥 ضد صاحبك
+</button>
+
+<button class="mode-button" id="computerMode">
+🖥️ ضد الكمبيوتر
+</button>
+
 </div>
-<div class="developer">المطور: طارق محمود</div>
+
+<div class="developer">
+المطور: طارق محمود
 </div>
+
+</div>
+
+
+<!-- اختيار مستوى الكمبيوتر -->
 <div id="levelScreen" class="screen">
+
 <div class="logo">🖥️ الكمبيوتر</div>
-<div class="level-title">اختار مستوى الكمبيوتر</div>
-<div class="coin-bar">🪙 <span class="coin-count" id="levelCoins">0</span> كوينز</div>
+
+<div class="level-title">
+اختار مستوى الكمبيوتر
+</div>
+
+<div class="coin-bar">
+🪙 <span class="coin-count" id="levelCoins">0</span> كوينز
+</div>
+
 <div class="level-buttons">
-<button class="level-button" data-level="beginner">🟢 مبتدئ<small>حركات عشوائية وبسيطة — الفوز +50 🪙</small>
+
+<button class="level-button" data-level="beginner">
+🟢 مبتدئ
+<small>حركات عشوائية وبسيطة — الفوز +50 🪙</small>
 </button>
-<button class="level-button" data-level="easy">🟡 سهل<small>الكمبيوتر يحاول اللعب بشكل أفضل — الفوز +75 🪙</small>
+
+<button class="level-button" data-level="easy">
+🟡 سهل
+<small>الكمبيوتر يحاول اللعب بشكل أفضل — الفوز +75 🪙</small>
 </button>
-<button class="level-button" data-level="medium">🟠 متوسط<small>هجوم ودفاع — الفوز +100 🪙</small>
+
+<button class="level-button" data-level="medium">
+🟠 متوسط
+<small>هجوم ودفاع — الفوز +100 🪙</small>
 </button>
-<button class="level-button" data-level="hard">🔴 صعب<small>ذكاء قوي — الفوز +150 🪙</small>
+
+<button class="level-button" data-level="hard">
+🔴 صعب
+<small>ذكاء قوي — الفوز +150 🪙</small>
 </button>
-<button class="level-button" data-level="pro">☠️ لاعيب<small>أقوى مستوى — خطأ نادر جدًا — الفوز +500 🪙</small>
+
+<button class="level-button" data-level="pro">
+☠️ لاعيب
+<small>أقوى مستوى — خطأ نادر جدًا — الفوز +500 🪙</small>
 </button>
+
 </div>
-<button class="back-button" id="levelBack">← رجوع</button>
+
+<button class="back-button" id="levelBack">
+← رجوع
+</button>
+
 </div>
+
+
+<!-- أسماء اللاعبين -->
 <div id="nameScreen" class="screen">
+
 <div class="logo">👥 XO ARENA</div>
-<div class="subtitle">اكتب أسماء اللاعبين</div>
+
+<div class="subtitle">
+اكتب أسماء اللاعبين
+</div>
+
 <div class="input-box">
+
 <label>👤 اسم اللاعب الأول</label>
-<input id="nameM" type="text" maxlength="15" placeholder="اكتب اسمك" autocomplete="off">
+
+<input
+id="nameM"
+type="text"
+maxlength="15"
+placeholder="اكتب اسمك"
+autocomplete="off"
+>
+
 </div>
+
 <div class="input-box">
+
 <label>👤 اسم اللاعب الثاني</label>
-<input id="nameT" type="text" maxlength="15" placeholder="اكتب اسمك" autocomplete="off">
+
+<input
+id="nameT"
+type="text"
+maxlength="15"
+placeholder="اكتب اسمك"
+autocomplete="off"
+>
+
 </div>
-<button class="start-button" id="startFriend">🎮 ابدأ اللعب</button>
-<button class="back-button" id="friendBack">← رجوع</button>
+
+<button class="start-button" id="startFriend">
+🎮 ابدأ اللعب
+</button>
+
+<button class="back-button" id="friendBack">
+← رجوع
+</button>
+
 </div>
+
+
+<!-- شاشة اللعبة -->
 <div id="gameScreen">
-<div class="logo">⚡ XO ARENA</div>
-<div class="subtitle">مواجهة XO</div>
-<div class="coin-bar">🪙 <span class="coin-count" id="gameCoins">0</span> كوينز</div>
+
+<div class="logo">
+⚡ XO ARENA
+</div>
+
+<div class="subtitle">
+مواجهة XO
+</div>
+
+<div class="coin-bar">
+🪙 <span class="coin-count" id="gameCoins">0</span> كوينز
+</div>
+
 <div class="players">
+
 <div class="player active" id="playerM">
-<div class="avatar" id="avatarM">X</div>
-<div class="name" id="displayNameM">اللاعب الأول</div>
-<div class="score" id="scoreM">0</div>
+
+<div class="avatar" id="avatarM">
+X
 </div>
+
+<div class="name" id="displayNameM">
+اللاعب الأول
+</div>
+
+<div class="score" id="scoreM">
+0
+</div>
+
+</div>
+
+
 <div class="player" id="playerT">
-<div class="avatar" id="avatarT">O</div>
-<div class="name" id="displayNameT">اللاعب الثاني</div>
-<div class="score" id="scoreT">0</div>
+
+<div class="avatar" id="avatarT">
+O
 </div>
+
+<div class="name" id="displayNameT">
+اللاعب الثاني
 </div>
-<div class="status" id="status">دور اللاعب الأول ❌</div>
-<div class="board" id="board">
+
+<div class="score" id="scoreT">
+0
 </div>
+
+</div>
+
+</div>
+
+<div class="status" id="status">
+دور اللاعب الأول ❌
+</div>
+
+<div class="board" id="board"></div>
+
 <div class="buttons">
-<button class="control" id="newGameButton">🎮 جولة جديدة</button>
-<button class="control reset-score" id="resetButton">🗑️ تصفير النقاط</button>
+
+<button class="control" id="newGameButton">
+🎮 جولة جديدة
+</button>
+
+<button class="control reset-score" id="resetButton">
+🗑️ تصفير النقاط
+</button>
+
 </div>
-<button class="back-button" id="gameBack">🏠 القائمة الرئيسية</button>
-<div class="developer">المطور: طارق محمود</div>
+
+<button class="back-button" id="gameBack">
+🏠 القائمة الرئيسية
+</button>
+
+<div class="developer">
+المطور: طارق محمود
 </div>
+
 </div>
+
+</div>
+
+
+<!-- الفوز -->
 <div class="win-overlay" id="winOverlay">
+
 <div class="win-box">
-<div class="win-trophy">🏆</div>
-<div class="win-title">الفائز</div>
-<div class="win-name" id="winnerName">اللاعب</div>
+
+<div class="win-trophy">
+🏆
 </div>
+
+<div class="win-title">
+الفائز
 </div>
+
+<div class="win-name" id="winnerName">
+اللاعب
+</div>
+
+</div>
+
+</div>
+
+
+<!-- التعادل -->
 <div class="draw-popup" id="drawPopup">
+
 <div class="draw-box">
-<div class="draw-icon">🤝</div>
-<div class="draw-text">تعادل!</div>
+
+<div class="draw-icon">
+🤝
 </div>
+
+<div class="draw-text">
+تعادل!
 </div>
+
+</div>
+
+</div>
+
+
+<!-- المتجر -->
 <div class="shop-overlay" id="shopOverlay">
+
 <div class="shop-box">
+
 <div class="shop-head">
-<div class="shop-title">🛒 متجر XO ARENA</div>
-<button class="close-shop" id="closeShop">✕</button>
+
+<div class="shop-title">
+🛒 متجر XO ARENA
 </div>
-<div class="coin-bar">🪙 <span class="coin-count" id="shopCoins">0</span> كوينز</div>
-<div class="shop-grid" id="shopGrid">
+
+<button class="close-shop" id="closeShop">
+✕
+</button>
+
 </div>
+
+<div class="coin-bar">
+🪙 <span class="coin-count" id="shopCoins">0</span> كوينز
 </div>
+
+<div class="shop-grid" id="shopGrid"></div>
+
 </div>
+
+</div>
+
+
+<!-- المطور -->
 <div class="developer-link">
-<a href="https://wa.me/201101538691" target="_blank" rel="noopener">
+
+<a
+href="https://wa.me/201101538691"
+target="_blank"
+rel="noopener"
+>
+
 <span class="whatsapp-icon">🟢</span>
-<span>المطور: طارق محمود</span>
+
+<span>
+المطور: طارق محمود
+</span>
+
 </a>
+
 </div>
+
+
 <script>
+
 const $=id=>document.getElementById(id);
-const homeScreen=$("homeScreen"),levelScreen=$("levelScreen"),nameScreen=$("nameScreen"),gameScreen=$("gameScreen"),board=$("board"),status=$("status"),nameM=$("nameM"),nameT=$("nameT"),displayNameM=$("displayNameM"),displayNameT=$("displayNameT"),scoreM=$("scoreM"),scoreT=$("scoreT"),playerM=$("playerM"),playerT=$("playerT"),winOverlay=$("winOverlay"),winnerName=$("winnerName"),drawPopup=$("drawPopup");
-let cells=[],currentPlayer="M",gameOver=false,gameMode="friend",computerLevel="pro",scores= {
-M:0,T:0
-}
-;
-const winningPatterns=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+const homeScreen=$("homeScreen");
+const levelScreen=$("levelScreen");
+const nameScreen=$("nameScreen");
+const gameScreen=$("gameScreen");
+const board=$("board");
+const status=$("status");
+
+const nameM=$("nameM");
+const nameT=$("nameT");
+
+const displayNameM=$("displayNameM");
+const displayNameT=$("displayNameT");
+
+const scoreM=$("scoreM");
+const scoreT=$("scoreT");
+
+const playerM=$("playerM");
+const playerT=$("playerT");
+
+const winOverlay=$("winOverlay");
+const winnerName=$("winnerName");
+const drawPopup=$("drawPopup");
+
+let cells=[];
+
+/*
+M = اللاعب
+T = الكمبيوتر / اللاعب الثاني
+
+M دائماً X
+T دائماً O
+*/
+
+let currentPlayer="M";
+
+let gameOver=false;
+
+let gameMode="friend";
+
+let computerLevel="pro";
+
+let scores={
+M:0,
+T:0
+};
+
+const winningPatterns=[
+[0,1,2],
+[3,4,5],
+[6,7,8],
+[0,3,6],
+[1,4,7],
+[2,5,8],
+[0,4,8],
+[2,4,6]
+];
+
+
 /* =========================
    الكوينز والمتجر
 ========================= */
-const REWARDS= {
-beginner:50,easy:75,medium:100,hard:150,pro:500
+
+const REWARDS={
+beginner:50,
+easy:75,
+medium:100,
+hard:150,
+pro:500
+};
+
+const SKINS=[
+
+{
+id:"classic",
+name:"Classic",
+price:0,
+x:"X",
+o:"O"
+},
+
+{
+id:"fire",
+name:"🔥 Fire",
+price:250,
+x:"✕",
+o:"◉"
+},
+
+{
+id:"lightning",
+name:"⚡ Lightning",
+price:400,
+x:"⚡",
+o:"◉"
+},
+
+{
+id:"diamond",
+name:"💎 Diamond",
+price:600,
+x:"✦",
+o:"◉"
+},
+
+{
+id:"galaxy",
+name:"🌌 Galaxy",
+price:750,
+x:"✕",
+o:"◯"
+},
+
+{
+id:"royal",
+name:"👑 Royal",
+price:1000,
+x:"♛",
+o:"♕"
 }
-;
-const SKINS=[ {
-id:"classic",name:"Classic",price:0,x:"X",o:"O"
-}
-, {
-id:"fire",name:"🔥 Fire",price:250,x:"✕",o:"◉"
-}
-, {
-id:"lightning",name:"⚡ Lightning",price:400,x:"⚡",o:"◉"
-}
-, {
-id:"diamond",name:"💎 Diamond",price:600,x:"✦",o:"◉"
-}
-, {
-id:"galaxy",name:"🌌 Galaxy",price:750,x:"✕",o:"◯"
-}
-, {
-id:"royal",name:"👑 Royal",price:1000,x:"♛",o:"♕"
-}
+
 ];
-let coins=Number(localStorage.getItem("xoarena_coins_v1")||0);
+
+let coins=Number(
+localStorage.getItem("xoarena_coins_v1")||0
+);
+
 let owned=[];
-try {
-owned=JSON.parse(localStorage.getItem("xoarena_skins_v1")||'["classic"]')
+
+try{
+
+owned=JSON.parse(
+localStorage.getItem("xoarena_skins_v1")||'["classic"]'
+);
+
+}catch(e){
+
+owned=["classic"];
+
 }
-catch(e) {
-owned=["classic"]
-}
-if(!Array.isArray(owned))owned=["classic"];
-if(!owned.includes("classic"))owned.push("classic");
-let selected=localStorage.getItem("xoarena_selected_skin_v1")||"classic";
-if(!SKINS.some(s=>s.id===selected))selected="classic";
-function saveEconomy() {
-localStorage.setItem("xoarena_coins_v1",String(coins));
-localStorage.setItem("xoarena_skins_v1",JSON.stringify(owned));
-localStorage.setItem("xoarena_selected_skin_v1",selected);
+
+if(!Array.isArray(owned))
+owned=["classic"];
+
+if(!owned.includes("classic"))
+owned.push("classic");
+
+let selected=
+localStorage.getItem("xoarena_selected_skin_v1")
+||"classic";
+
+if(!SKINS.some(s=>s.id===selected))
+selected="classic";
+
+
+function saveEconomy(){
+
+localStorage.setItem(
+"xoarena_coins_v1",
+String(coins)
+);
+
+localStorage.setItem(
+"xoarena_skins_v1",
+JSON.stringify(owned)
+);
+
+localStorage.setItem(
+"xoarena_selected_skin_v1",
+selected
+);
+
 updateCoins();
+
 }
-function updateCoins() {
-document.querySelectorAll(".coin-count").forEach(e=>e.textContent=coins);
+
+
+function updateCoins(){
+
+document
+.querySelectorAll(".coin-count")
+.forEach(e=>{
+e.textContent=coins;
+});
+
 }
-function getSkin() {
-return SKINS.find(s=>s.id===selected)||SKINS[0]
+
+
+function getSkin(){
+
+return SKINS.find(
+s=>s.id===selected
+)||SKINS[0];
+
 }
-function refreshAvatars() {
+
+
+function refreshAvatars(){
+
 const s=getSkin();
+
 $("avatarM").textContent=s.x;
+
 $("avatarT").textContent=s.o;
+
 }
-function showToast(message) {
-const old=document.querySelector(".toast");
-if(old)old.remove();
-const t=document.createElement("div");
+
+
+function showToast(message){
+
+const old=
+document.querySelector(".toast");
+
+if(old)
+old.remove();
+
+const t=
+document.createElement("div");
+
 t.className="toast";
+
 t.textContent=message;
+
 document.body.appendChild(t);
-setTimeout(()=>t.remove(),2200);
+
+setTimeout(
+()=>t.remove(),
+2200
+);
+
 }
-function renderShop() {
+
+
+function renderShop(){
+
 const grid=$("shopGrid");
+
 grid.innerHTML="";
-SKINS.forEach(s=> {
-const isOwned=owned.includes(s.id);
-const isSelected=selected===s.id;
-const card=document.createElement("div");
+
+SKINS.forEach(s=>{
+
+const isOwned=
+owned.includes(s.id);
+
+const isSelected=
+selected===s.id;
+
+const card=
+document.createElement("div");
+
 card.className="skin";
-card.innerHTML=`<div class="skin-preview">
-<span>$ {
-s.x
-}
-</span>
-<span>$ {
-s.o
-}
-</span>
+
+card.innerHTML=`
+
+<div class="skin-preview">
+<span>${s.x}</span>
+<span>${s.o}</span>
 </div>
-<div class="skin-name">$ {
-s.name
-}
+
+<div class="skin-name">
+${s.name}
 </div>
-<div class="skin-price">$ {
-s.price===0?"مجاني":"🪙 "+s.price
-}
-</div>`;
-const button=document.createElement("button");
-button.className=isSelected?"selected":isOwned?"owned":"";
-button.textContent=isSelected?"✅ مجهز":isOwned?"⚡ تجهيز":s.price===0?"🎁 استلام":"🪙 شراء";
-button.onclick=()=> {
-if(isOwned) {
+
+<div class="skin-price">
+${s.price===0?"مجاني":"🪙 "+s.price}
+</div>
+
+`;
+
+const button=
+document.createElement("button");
+
+button.className=
+isSelected
+?"selected"
+:isOwned
+?"owned"
+:"";
+
+button.textContent=
+isSelected
+?"✅ مجهز"
+:isOwned
+?"⚡ تجهيز"
+:s.price===0
+?"🎁 استلام"
+:"🪙 شراء";
+
+button.onclick=()=>{
+
+if(isOwned){
+
 selected=s.id;
+
 saveEconomy();
+
 renderShop();
+
 refreshAvatars();
+
 playTone(650,.08);
+
 showToast("✅ تم تجهيز الشكل");
+
 return;
+
 }
-if(coins<s.price) {
-playTone(190,.12,"triangle",.04);
+
+if(coins<s.price){
+
+playTone(
+190,
+.12,
+"triangle",
+.04
+);
+
 showToast("❌ الكوينز مش كفاية");
+
 return;
+
 }
+
 coins-=s.price;
+
 owned.push(s.id);
+
 selected=s.id;
+
 saveEconomy();
+
 renderShop();
+
 refreshAvatars();
+
 playTone(800,.1);
-showToast("🎉 تم شراء الشكل وتجهيزه!");
-}
-;
+
+showToast(
+"🎉 تم شراء الشكل وتجهيزه!"
+);
+
+};
+
 card.appendChild(button);
+
 grid.appendChild(card);
+
+});
+
 }
-);
-}
-function showReward(amount) {
-const reward=document.createElement("div");
+
+
+function showReward(amount){
+
+const reward=
+document.createElement("div");
+
 reward.className="reward";
-reward.innerHTML=`<div class="big">+$ {
-amount
-}
-🪙</div>
-<div class="small">مكافأة الفوز 🎉</div>`;
+
+reward.innerHTML=`
+
+<div class="big">
++${amount} 🪙
+</div>
+
+<div class="small">
+مكافأة الفوز 🎉
+</div>
+
+`;
+
 document.body.appendChild(reward);
-const countEls=document.querySelectorAll(".coin-count");
-countEls.forEach(e=> {
+
+const countEls=
+document.querySelectorAll(".coin-count");
+
+countEls.forEach(e=>{
+
 e.classList.remove("coin-pulse");
+
 void e.offsetWidth;
-e.classList.add("coin-pulse")
-}
-);
-for(let i=0;
-i<22;
-i++) {
-const coin=document.createElement("div");
+
+e.classList.add("coin-pulse");
+
+});
+
+for(let i=0;i<22;i++){
+
+const coin=
+document.createElement("div");
+
 coin.className="coin-fly";
+
 coin.textContent="🪙";
-coin.style.left=(Math.random()*100)+"vw";
-coin.style.setProperty("--dx",(Math.random()*220-110)+"px");
-coin.style.animationDelay=(Math.random()*.35)+"s";
+
+coin.style.left=
+(Math.random()*100)+"vw";
+
+coin.style.setProperty(
+"--dx",
+(Math.random()*220-110)+"px"
+);
+
+coin.style.animationDelay=
+(Math.random()*.35)+"s";
+
 document.body.appendChild(coin);
-setTimeout(()=>coin.remove(),2200);
+
+setTimeout(
+()=>coin.remove(),
+2200
+);
+
 }
-setTimeout(()=>reward.remove(),2800);
+
+setTimeout(
+()=>reward.remove(),
+2800
+);
+
 }
-function awardWinCoins() {
-if(gameMode!=="computer"||currentPlayer!=="M")return;
-const amount=REWARDS[computerLevel]||0;
-if(amount<=0)return;
+
+
+function awardWinCoins(){
+
+if(
+gameMode!=="computer"||
+currentPlayer!=="M"
+)return;
+
+const amount=
+REWARDS[computerLevel]||0;
+
+if(amount<=0)
+return;
+
 coins+=amount;
+
 saveEconomy();
+
 showReward(amount);
-playTone(880,.11,"sine",.04);
-setTimeout(()=>playTone(1175,.13,"sine",.04),110);
+
+playTone(
+880,
+.11,
+"sine",
+.04
+);
+
+setTimeout(
+()=>playTone(
+1175,
+.13,
+"sine",
+.04
+),
+110
+);
+
 }
+
+
 /* =========================
    الأصوات
 ========================= */
+
 let audioContext=null;
-function getAudio() {
-if(!audioContext)audioContext=new(window.AudioContext||window.webkitAudioContext)();
-if(audioContext.state==="suspended")audioContext.resume();
+
+
+function getAudio(){
+
+if(!audioContext){
+
+audioContext=
+new(
+window.AudioContext||
+window.webkitAudioContext
+)();
+
+}
+
+if(audioContext.state==="suspended")
+audioContext.resume();
+
 return audioContext;
+
 }
-function playTone(frequency,duration,type="sine",volume=.045) {
-try {
-const ctx=getAudio(),oscillator=ctx.createOscillator(),gain=ctx.createGain();
+
+
+function playTone(
+frequency,
+duration,
+type="sine",
+volume=.045
+){
+
+try{
+
+const ctx=getAudio();
+
+const oscillator=
+ctx.createOscillator();
+
+const gain=
+ctx.createGain();
+
 oscillator.type=type;
-oscillator.frequency.setValueAtTime(frequency,ctx.currentTime);
-gain.gain.setValueAtTime(volume,ctx.currentTime);
-gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+duration);
+
+oscillator.frequency.setValueAtTime(
+frequency,
+ctx.currentTime
+);
+
+gain.gain.setValueAtTime(
+volume,
+ctx.currentTime
+);
+
+gain.gain.exponentialRampToValueAtTime(
+.001,
+ctx.currentTime+duration
+);
+
 oscillator.connect(gain);
+
 gain.connect(ctx.destination);
+
 oscillator.start();
-oscillator.stop(ctx.currentTime+duration);
+
+oscillator.stop(
+ctx.currentTime+duration
+);
+
+}catch(e){}
+
 }
-catch(e) {
+
+
+function playMoveSound(symbol){
+
+if(symbol==="X"){
+
+playTone(
+420,
+.08,
+"sine",
+.035
+);
+
+setTimeout(
+()=>playTone(
+620,
+.07,
+"sine",
+.025
+),
+35
+);
+
+}else{
+
+playTone(
+280,
+.08,
+"sine",
+.035
+);
+
+setTimeout(
+()=>playTone(
+380,
+.07,
+"sine",
+.025
+),
+35
+);
+
 }
 
 }
-function playMoveSound(symbol) {
-if(symbol==="X") {
-playTone(420,.08,"sine",.035);
-setTimeout(()=>playTone(620,.07,"sine",.025),35)
-}
-else {
-playTone(280,.08,"sine",.035);
-setTimeout(()=>playTone(380,.07,"sine",.025),35)
-}
+
+
+function playWinSound(){
+
+[523,659,784,1046]
+.forEach(
+(note,index)=>
+setTimeout(
+()=>playTone(
+note,
+.18,
+"sine",
+.055
+),
+index*100
+)
+);
 
 }
-function playWinSound() {
-[523,659,784,1046].forEach((note,index)=>setTimeout(()=>playTone(note,.18,"sine",.055),index*100))
+
+
+function playDrawSound(){
+
+playTone(
+330,
+.15,
+"triangle",
+.04
+);
+
+setTimeout(
+()=>playTone(
+260,
+.2,
+"triangle",
+.035
+),
+120
+);
+
 }
-function playDrawSound() {
-playTone(330,.15,"triangle",.04);
-setTimeout(()=>playTone(260,.2,"triangle",.035),120)
-}
+
+
 /* =========================
    الشاشات
 ========================= */
-function showScreen(screen) {
-[homeScreen,levelScreen,nameScreen,gameScreen].forEach(s=>s.style.display="none");
+
+function showScreen(screen){
+
+[
+homeScreen,
+levelScreen,
+nameScreen,
+gameScreen
+]
+.forEach(
+s=>s.style.display="none"
+);
+
 screen.style.display="block";
+
 updateCoins();
+
 }
-$("friendMode").onclick=()=> {
+
+
+$("friendMode").onclick=()=>{
+
 playTone(500,.06);
-showScreen(nameScreen)
-}
-;
-$("computerMode").onclick=()=> {
+
+showScreen(nameScreen);
+
+};
+
+
+$("computerMode").onclick=()=>{
+
 playTone(500,.06);
-showScreen(levelScreen)
-}
-;
-$("levelBack").onclick=()=>showScreen(homeScreen);
-$("friendBack").onclick=()=>showScreen(homeScreen);
-$("shopButton").onclick=()=> {
-$("shopOverlay").classList.add("show");
+
+showScreen(levelScreen);
+
+};
+
+
+$("levelBack").onclick=()=>
+showScreen(homeScreen);
+
+
+$("friendBack").onclick=()=>
+showScreen(homeScreen);
+
+
+$("shopButton").onclick=()=>{
+
+$("shopOverlay")
+.classList.add("show");
+
 renderShop();
-updateCoins()
-}
-;
-$("closeShop").onclick=()=>$("shopOverlay").classList.remove("show");
-$("shopOverlay").onclick=e=> {
-if(e.target===$("shopOverlay"))$("shopOverlay").classList.remove("show")
-}
-;
-document.querySelectorAll(".level-button").forEach(button=>button.onclick=()=> {
-computerLevel=button.dataset.level;
+
+updateCoins();
+
+};
+
+
+$("closeShop").onclick=()=>
+$("shopOverlay")
+.classList.remove("show");
+
+
+$("shopOverlay").onclick=e=>{
+
+if(e.target===$("shopOverlay"))
+$("shopOverlay")
+.classList.remove("show");
+
+};
+
+
+document
+.querySelectorAll(".level-button")
+.forEach(
+button=>
+button.onclick=()=>{
+
+computerLevel=
+button.dataset.level;
+
 gameMode="computer";
-startComputerGame()
+
+startComputerGame();
+
 }
 );
+
+
 /* =========================
    ضد صاحبك
 ========================= */
-$("startFriend").onclick=()=> {
+
+$("startFriend").onclick=()=>{
+
 gameMode="friend";
-displayNameM.textContent=nameM.value.trim()||"اللاعب الأول";
-displayNameT.textContent=nameT.value.trim()||"اللاعب الثاني";
-scores= {
-M:0,T:0
-}
-;
+
+displayNameM.textContent=
+nameM.value.trim()
+||"اللاعب الأول";
+
+displayNameT.textContent=
+nameT.value.trim()
+||"اللاعب الثاني";
+
+scores={
+M:0,
+T:0
+};
+
 updateScores();
+
 showScreen(gameScreen);
+
 startNewRound();
-}
-;
+
+};
+
+
 /* =========================
    ضد الكمبيوتر
 ========================= */
-function startComputerGame() {
+
+function startComputerGame(){
+
 displayNameM.textContent="أنت";
-displayNameT.textContent="الكمبيوتر 🖥️";
-scores= {
-M:0,T:0
-}
-;
+
+displayNameT.textContent=
+"الكمبيوتر 🖥️";
+
+scores={
+M:0,
+T:0
+};
+
 updateScores();
+
 showScreen(gameScreen);
+
 startNewRound();
+
 }
+
+
 /* =========================
    إنشاء اللوحة
 ========================= */
-function createBoard() {
+
+function createBoard(){
+
 board.innerHTML="";
+
 cells=[];
-for(let i=0;
-i<9;
-i++) {
-const cell=document.createElement("button");
+
+for(let i=0;i<9;i++){
+
+const cell=
+document.createElement("button");
+
 cell.type="button";
+
 cell.className="cell";
+
 cell.dataset.symbol="";
+
 cell.onclick=()=>makeMove(i);
+
 board.appendChild(cell);
+
 cells.push(cell);
+
 }
 
 }
-function putSymbol(cell,symbol) {
+
+
+/*
+هذه الدالة هي أهم تعديل:
+
+M = X
+T = O
+*/
+
+function putSymbol(cell,player){
+
 const s=getSkin();
-cell.textContent=symbol==="X"?s.x:s.o;
-cell.classList.add(symbol==="X"?"m":"t");
-cell.dataset.symbol=symbol;
+
+if(player==="M"){
+
+cell.textContent=s.x;
+
+cell.classList.add("m");
+
+cell.dataset.symbol="X";
+
+}else{
+
+cell.textContent=s.o;
+
+cell.classList.add("t");
+
+cell.dataset.symbol="O";
+
+}
+
 cell.disabled=true;
+
 }
-function startNewRound() {
+
+
+function startNewRound(){
+
 hideWinner();
+
 hideDraw();
+
 currentPlayer="M";
+
 gameOver=false;
+
 createBoard();
+
 updateTurn();
+
 }
+
+
 /* =========================
    الحركة
 ========================= */
-function makeMove(index) {
-if(gameOver)return;
-if(gameMode==="computer"&&currentPlayer==="T")return;
+
+function makeMove(index){
+
+if(gameOver)
+return;
+
+if(
+gameMode==="computer"&&
+currentPlayer==="T"
+)
+return;
+
 const cell=cells[index];
-if(!cell||cell.dataset.symbol)return;
-putSymbol(cell,currentPlayer);
-playMoveSound(currentPlayer==="M"?"X":"O");
-const winner=checkWinner();
-if(winner) {
+
+if(!cell||cell.dataset.symbol)
+return;
+
+
+/*
+اللاعب الحقيقي M
+وبالتالي يظهر X
+*/
+
+putSymbol(
+cell,
+"M"
+);
+
+playMoveSound("X");
+
+const winner=
+checkWinner();
+
+if(winner){
+
 finishRound(winner);
-return
+
+return;
+
 }
-if(isDraw()) {
+
+if(isDraw()){
+
 finishDraw();
-return
+
+return;
+
 }
-currentPlayer=currentPlayer==="M"?"T":"M";
+
+currentPlayer="T";
+
 updateTurn();
-if(gameMode==="computer"&&currentPlayer==="T"&&!gameOver)setTimeout(computerMove,350);
+
+
+if(
+gameMode==="computer"&&
+!gameOver
+){
+
+setTimeout(
+computerMove,
+350
+);
+
 }
+
+}
+
+
 /* =========================
    فحص الفوز والتعادل
 ========================= */
-function checkWinner() {
-for(const p of winningPatterns) {
-const a=cells[p[0]].dataset.symbol,b=cells[p[1]].dataset.symbol,c=cells[p[2]].dataset.symbol;
-if(a!==""&&a===b&&b===c)return p;
+
+function checkWinner(){
+
+for(const p of winningPatterns){
+
+const a=
+cells[p[0]].dataset.symbol;
+
+const b=
+cells[p[1]].dataset.symbol;
+
+const c=
+cells[p[2]].dataset.symbol;
+
+if(
+a!==""&&
+a===b&&
+b===c
+)
+return p;
+
 }
+
 return null;
+
 }
-function isDraw() {
-return cells.every(cell=>cell.dataset.symbol!=="")
+
+
+function isDraw(){
+
+return cells.every(
+cell=>cell.dataset.symbol!==""
+);
+
 }
+
+
 /* =========================
    الفوز
 ========================= */
-function finishRound(pattern) {
+
+function finishRound(pattern){
+
 gameOver=true;
-pattern.forEach(index=>cells[index].classList.add("winner"));
+
+pattern.forEach(
+index=>
+cells[index]
+.classList.add("winner")
+);
+
 scores[currentPlayer]++;
+
 updateScores();
-const winner=currentPlayer==="M"?displayNameM.textContent:displayNameT.textContent;
-playerM.classList.toggle("active",currentPlayer==="M");
-playerT.classList.toggle("active",currentPlayer==="T");
-status.textContent="🏆 "+winner+" فاز بالجولة!";
+
+const winner=
+currentPlayer==="M"
+?displayNameM.textContent
+:displayNameT.textContent;
+
+playerM.classList.toggle(
+"active",
+currentPlayer==="M"
+);
+
+playerT.classList.toggle(
+"active",
+currentPlayer==="T"
+);
+
+status.textContent=
+"🏆 "+winner+" فاز بالجولة!";
+
 playWinSound();
+
 showWinner(winner);
+
 launchConfetti();
+
 awardWinCoins();
+
 }
-function showWinner(name) {
+
+
+function showWinner(name){
+
 winnerName.textContent=name;
+
 winOverlay.classList.add("show");
-setTimeout(hideWinner,2300)
+
+setTimeout(
+hideWinner,
+2300
+);
+
 }
-function hideWinner() {
-winOverlay.classList.remove("show")
+
+
+function hideWinner(){
+
+winOverlay.classList.remove("show");
+
 }
-function finishDraw() {
+
+
+function finishDraw(){
+
 gameOver=true;
+
 playerM.classList.remove("active");
+
 playerT.classList.remove("active");
+
 status.textContent="🤝 تعادل!";
+
 playDrawSound();
+
 drawPopup.classList.add("show");
-setTimeout(hideDraw,1500)
+
+setTimeout(
+hideDraw,
+1500
+);
+
 }
-function hideDraw() {
-drawPopup.classList.remove("show")
+
+
+function hideDraw(){
+
+drawPopup.classList.remove("show");
+
 }
+
+
 /* =========================
    المفرقعات
 ========================= */
-function launchConfetti() {
-for(let i=0;
-i<90;
-i++) {
-const piece=document.createElement("div");
+
+function launchConfetti(){
+
+for(let i=0;i<90;i++){
+
+const piece=
+document.createElement("div");
+
 piece.className="confetti";
-const size=5+Math.random()*8;
-piece.style.width=size+"px";
-piece.style.height=size*1.6+"px";
-piece.style.left=Math.random()*100+"vw";
-piece.style.setProperty("--x",(Math.random()*500-250)+"px");
-piece.style.setProperty("--r",(Math.random()*1440-720)+"deg");
-piece.style.animationDuration=2.2+Math.random()*2.2+"s";
-piece.style.animationDelay=Math.random()*.35+"s";
-piece.style.background=["#ff3b3b","#35e06f","#ffd84d","#7c5cff","#36cfff","#ff66c4","#fff"][Math.floor(Math.random()*7)];
+
+const size=
+5+Math.random()*8;
+
+piece.style.width=
+size+"px";
+
+piece.style.height=
+size*1.6+"px";
+
+piece.style.left=
+Math.random()*100+"vw";
+
+piece.style.setProperty(
+"--x",
+(Math.random()*500-250)+"px"
+);
+
+piece.style.setProperty(
+"--r",
+(Math.random()*1440-720)+"deg"
+);
+
+piece.style.animationDuration=
+2.2+Math.random()*2.2+"s";
+
+piece.style.animationDelay=
+Math.random()*.35+"s";
+
+piece.style.background=[
+"#ff3b3b",
+"#35e06f",
+"#ffd84d",
+"#7c5cff",
+"#36cfff",
+"#ff66c4",
+"#fff"
+][
+Math.floor(Math.random()*7)
+];
+
 document.body.appendChild(piece);
-setTimeout(()=>piece.remove(),5000);
+
+setTimeout(
+()=>piece.remove(),
+5000
+);
+
 }
 
 }
+
+
 /* =========================
-   تحديث الدور والنقاط
+   الدور والنقاط
 ========================= */
-function updateTurn() {
+
+function updateTurn(){
+
 const s=getSkin();
-if(currentPlayer==="M") {
-status.textContent="دور "+displayNameM.textContent+" "+s.x;
+
+if(currentPlayer==="M"){
+
+status.textContent=
+"دور "+displayNameM.textContent+" "+s.x;
+
 playerM.classList.add("active");
+
 playerT.classList.remove("active");
-}
-else {
-status.textContent="دور "+displayNameT.textContent+" "+s.o;
+
+}else{
+
+status.textContent=
+"دور "+displayNameT.textContent+" "+s.o;
+
 playerT.classList.add("active");
+
 playerM.classList.remove("active");
+
 }
 
 }
-function updateScores() {
+
+
+function updateScores(){
+
 scoreM.textContent=scores.M;
-scoreT.textContent=scores.T
+
+scoreT.textContent=scores.T;
+
 }
+
+
 /* =========================
    الكمبيوتر
 ========================= */
-function computerMove() {
-if(gameOver||currentPlayer!=="T")return;
+
+function computerMove(){
+
+if(
+gameOver||
+currentPlayer!=="T"
+)
+return;
+
 let move;
-if(computerLevel==="beginner")move=randomMove();
-else if(computerLevel==="easy")move=Math.random()<.55?bestSimpleMove():randomMove();
-else if(computerLevel==="medium")move=Math.random()<.8?bestSimpleMove():randomMove();
-else if(computerLevel==="hard")move=Math.random()<.95?minimaxRoot():randomMove();
-else move=Math.random()<.005?randomMove():minimaxRoot();
-if(move===null||move===undefined)return;
+
+
+if(computerLevel==="beginner"){
+
+move=randomMove();
+
+}
+
+else if(computerLevel==="easy"){
+
+move=
+Math.random()<.55
+?bestSimpleMove()
+:randomMove();
+
+}
+
+else if(computerLevel==="medium"){
+
+move=
+Math.random()<.8
+?bestSimpleMove()
+:randomMove();
+
+}
+
+else if(computerLevel==="hard"){
+
+move=
+Math.random()<.95
+?minimaxRoot()
+:randomMove();
+
+}
+
+else{
+
+move=
+Math.random()<.005
+?randomMove()
+:minimaxRoot();
+
+}
+
+
+if(
+move===null||
+move===undefined
+)
+return;
+
 const cell=cells[move];
-if(!cell||cell.dataset.symbol)return;
-putSymbol(cell,"O");
+
+if(
+!cell||
+cell.dataset.symbol
+)
+return;
+
+
+/*
+التعديل المهم:
+الكمبيوتر = T
+وبالتالي putSymbol
+سيضع O
+*/
+
+putSymbol(
+cell,
+"T"
+);
+
 playMoveSound("O");
-const winner=checkWinner();
-if(winner) {
+
+
+const winner=
+checkWinner();
+
+if(winner){
+
 finishRound(winner);
-return
+
+return;
+
 }
-if(isDraw()) {
+
+if(isDraw()){
+
 finishDraw();
-return
+
+return;
+
 }
+
+
 currentPlayer="M";
+
 updateTurn();
+
 }
-function randomMove() {
+
+
+/* =========================
+   حركة عشوائية
+========================= */
+
+function randomMove(){
+
 const available=[];
-for(let i=0;
-i<9;
-i++)if(!cells[i].dataset.symbol)available.push(i);
-return available.length?available[Math.floor(Math.random()*available.length)]:null
+
+for(let i=0;i<9;i++){
+
+if(
+!cells[i].dataset.symbol
+)
+available.push(i);
+
 }
-function bestSimpleMove() {
-for(let i=0;
-i<9;
-i++) {
-if(cells[i].dataset.symbol)continue;
+
+return available.length
+?available[
+Math.floor(
+Math.random()*available.length
+)
+]
+:null;
+
+}
+
+
+/* =========================
+   الحركة الذكية
+========================= */
+
+function bestSimpleMove(){
+
+/*
+يحاول الكمبيوتر الفوز بـ O
+*/
+
+for(let i=0;i<9;i++){
+
+if(cells[i].dataset.symbol)
+continue;
+
 cells[i].dataset.symbol="O";
-if(checkWinner()) {
+
+if(checkWinner()){
+
 cells[i].dataset.symbol="";
-return i
+
+return i;
+
 }
+
 cells[i].dataset.symbol="";
+
 }
-for(let i=0;
-i<9;
-i++) {
-if(cells[i].dataset.symbol)continue;
+
+
+/*
+يمنع اللاعب X من الفوز
+*/
+
+for(let i=0;i<9;i++){
+
+if(cells[i].dataset.symbol)
+continue;
+
 cells[i].dataset.symbol="X";
-if(checkWinner()) {
+
+if(checkWinner()){
+
 cells[i].dataset.symbol="";
-return i
+
+return i;
+
 }
+
 cells[i].dataset.symbol="";
+
 }
-if(!cells[4].dataset.symbol)return 4;
-const corners=[0,2,6,8].filter(i=>!cells[i].dataset.symbol);
-if(corners.length)return corners[Math.floor(Math.random()*corners.length)];
+
+
+/*
+المربع الأوسط
+*/
+
+if(!cells[4].dataset.symbol)
+return 4;
+
+
+/*
+الزوايا
+*/
+
+const corners=
+[0,2,6,8]
+.filter(
+i=>!cells[i].dataset.symbol
+);
+
+if(corners.length)
+return corners[
+Math.floor(
+Math.random()*corners.length
+)
+];
+
 return randomMove();
+
 }
-function minimaxRoot() {
-let bestScore=-Infinity,bestMove=null;
-for(let i=0;
-i<9;
-i++) {
-if(cells[i].dataset.symbol)continue;
+
+
+/* =========================
+   Minimax
+========================= */
+
+function minimaxRoot(){
+
+let bestScore=-Infinity;
+
+let bestMove=null;
+
+for(let i=0;i<9;i++){
+
+if(cells[i].dataset.symbol)
+continue;
+
 cells[i].dataset.symbol="O";
-const score=minimax(false,0);
+
+const score=
+minimax(false,0);
+
 cells[i].dataset.symbol="";
-if(score>bestScore) {
+
+if(score>bestScore){
+
 bestScore=score;
-bestMove=i
+
+bestMove=i;
+
 }
 
 }
+
 return bestMove;
+
 }
-function minimax(isMaximizing,depth) {
-const winner=checkWinner();
-if(winner) {
-const symbol=cells[winner[0]].dataset.symbol;
-return symbol==="O"?10-depth:depth-10
+
+
+function minimax(isMaximizing,depth){
+
+const winner=
+checkWinner();
+
+if(winner){
+
+const symbol=
+cells[winner[0]].dataset.symbol;
+
+return symbol==="O"
+?10-depth
+:depth-10;
+
 }
-if(isDraw())return 0;
-if(isMaximizing) {
+
+if(isDraw())
+return 0;
+
+
+/*
+الكمبيوتر O
+*/
+
+if(isMaximizing){
+
 let bestScore=-Infinity;
-for(let i=0;
-i<9;
-i++)if(!cells[i].dataset.symbol) {
+
+for(let i=0;i<9;i++){
+
+if(!cells[i].dataset.symbol){
+
 cells[i].dataset.symbol="O";
-bestScore=Math.max(bestScore,minimax(false,depth+1));
-cells[i].dataset.symbol=""
+
+bestScore=Math.max(
+bestScore,
+minimax(false,depth+1)
+);
+
+cells[i].dataset.symbol="";
+
 }
+
+}
+
 return bestScore;
+
 }
+
+
+/*
+اللاعب X
+*/
+
 let bestScore=Infinity;
-for(let i=0;
-i<9;
-i++)if(!cells[i].dataset.symbol) {
+
+for(let i=0;i<9;i++){
+
+if(!cells[i].dataset.symbol){
+
 cells[i].dataset.symbol="X";
-bestScore=Math.min(bestScore,minimax(true,depth+1));
-cells[i].dataset.symbol=""
+
+bestScore=Math.min(
+bestScore,
+minimax(true,depth+1)
+);
+
+cells[i].dataset.symbol="";
+
 }
+
+}
+
 return bestScore;
+
 }
+
+
 /* =========================
    الأزرار
 ========================= */
-$("gameBack").onclick=()=> {
+
+$("gameBack").onclick=()=>{
+
 gameOver=true;
+
 hideWinner();
+
 hideDraw();
-showScreen(homeScreen)
-}
-;
-$("newGameButton").onclick=()=>startNewRound();
-$("resetButton").onclick=()=> {
-scores= {
-M:0,T:0
-}
-;
+
+showScreen(homeScreen);
+
+};
+
+
+$("newGameButton").onclick=()=>{
+
+startNewRound();
+
+};
+
+
+$("resetButton").onclick=()=>{
+
+scores={
+M:0,
+T:0
+};
+
 updateScores();
-startNewRound()
-}
-;
-nameM.onkeydown=e=> {
-if(e.key==="Enter")nameT.focus()
-}
-;
-nameT.onkeydown=e=> {
-if(e.key==="Enter")$("startFriend").click()
-}
-;
+
+startNewRound();
+
+};
+
+
+nameM.onkeydown=e=>{
+
+if(e.key==="Enter")
+nameT.focus();
+
+};
+
+
+nameT.onkeydown=e=>{
+
+if(e.key==="Enter")
+$("startFriend").click();
+
+};
+
 
 /* =========================
-   موسيقى خلفية خفيفة
-   بدون أي ملف خارجي
+   موسيقى خلفية
 ========================= */
+
 let musicCtx=null;
+
 let musicMaster=null;
+
 let musicTimer=null;
+
 let musicPlaying=false;
+
 let musicStarted=false;
-const musicNotes=[261.63,329.63,392.00,329.63,293.66,349.23,440.00,349.23];
+
+const musicNotes=[
+261.63,
+329.63,
+392.00,
+329.63,
+293.66,
+349.23,
+440.00,
+349.23
+];
+
+
 function startAmbientMusic(){
-if(musicPlaying)return;
+
+if(musicPlaying)
+return;
+
 try{
-const AC=window.AudioContext||window.webkitAudioContext;
-if(!AC)return;
-if(!musicCtx)musicCtx=new AC();
-if(musicCtx.state==="suspended")musicCtx.resume();
-if(!musicMaster){musicMaster=musicCtx.createGain();musicMaster.gain.value=.035;musicMaster.connect(musicCtx.destination)}
-musicPlaying=true;musicStarted=true;
+
+const AC=
+window.AudioContext||
+window.webkitAudioContext;
+
+if(!AC)
+return;
+
+if(!musicCtx)
+musicCtx=new AC();
+
+if(musicCtx.state==="suspended")
+musicCtx.resume();
+
+
+if(!musicMaster){
+
+musicMaster=
+musicCtx.createGain();
+
+/*
+رفعنا صوت الموسيقى
+من 0.035 إلى 0.07
+*/
+
+musicMaster.gain.value=.07;
+
+musicMaster.connect(
+musicCtx.destination
+);
+
+}
+
+
+musicPlaying=true;
+
+musicStarted=true;
+
+
 let i=0;
+
+
 function playAmbientNote(){
-if(!musicPlaying)return;
-const osc=musicCtx.createOscillator();
-const gain=musicCtx.createGain();
+
+if(!musicPlaying)
+return;
+
+const osc=
+musicCtx.createOscillator();
+
+const gain=
+musicCtx.createGain();
+
 osc.type="sine";
-osc.frequency.value=musicNotes[i++%musicNotes.length];
-gain.gain.setValueAtTime(0,musicCtx.currentTime);
-gain.gain.linearRampToValueAtTime(.22,musicCtx.currentTime+.08);
-gain.gain.exponentialRampToValueAtTime(.001,musicCtx.currentTime+1.9);
-osc.connect(gain);gain.connect(musicMaster);
+
+osc.frequency.value=
+musicNotes[
+i++%musicNotes.length
+];
+
+
+gain.gain.setValueAtTime(
+0,
+musicCtx.currentTime
+);
+
+gain.gain.linearRampToValueAtTime(
+.22,
+musicCtx.currentTime+.08
+);
+
+gain.gain.exponentialRampToValueAtTime(
+.001,
+musicCtx.currentTime+1.9
+);
+
+osc.connect(gain);
+
+gain.connect(musicMaster);
+
 osc.start();
-osc.stop(musicCtx.currentTime+2);
+
+osc.stop(
+musicCtx.currentTime+2
+);
+
 }
+
+
 playAmbientNote();
-musicTimer=setInterval(playAmbientNote,1500);
-const button=$("musicButton");
-if(button){button.textContent="🎵";button.classList.add("playing")}
-}catch(e){musicPlaying=false}
+
+musicTimer=
+setInterval(
+playAmbientNote,
+1500
+);
+
+
+const button=
+$("musicButton");
+
+if(button){
+
+button.textContent="🎵";
+
+button.classList.add(
+"playing"
+);
+
 }
-function stopAmbientMusic(){
+
+}catch(e){
+
 musicPlaying=false;
-if(musicTimer){clearInterval(musicTimer);musicTimer=null}
-const button=$("musicButton");
-if(button){button.textContent="🔇";button.classList.remove("playing")}
+
 }
-function toggleAmbientMusic(){musicPlaying?stopAmbientMusic():startAmbientMusic()}
+
+}
+
+
+function stopAmbientMusic(){
+
+musicPlaying=false;
+
+if(musicTimer){
+
+clearInterval(musicTimer);
+
+musicTimer=null;
+
+}
+
+const button=
+$("musicButton");
+
+if(button){
+
+button.textContent="🔇";
+
+button.classList.remove(
+"playing"
+);
+
+}
+
+}
+
+
+function toggleAmbientMusic(){
+
+musicPlaying
+?stopAmbientMusic()
+:startAmbientMusic();
+
+}
+
+
 function hideLoadingScreen(){
-const loading=$("loadingScreen");
-if(!loading)return;
+
+const loading=
+$("loadingScreen");
+
+if(!loading)
+return;
+
 loading.classList.add("hide");
-document.body.classList.add("app-ready");
-setTimeout(()=>loading.remove(),800);
+
+document.body.classList.add(
+"app-ready"
+);
+
+setTimeout(
+()=>loading.remove(),
+800
+);
+
 }
-const musicButton=$("musicButton");
-if(musicButton)musicButton.onclick=()=>toggleAmbientMusic();
+
+
+const musicButton=
+$("musicButton");
+
+if(musicButton){
+
+musicButton.onclick=
+()=>toggleAmbientMusic();
+
+}
+
+
 function startMusicAfterFirstTouch(){
-if(!musicStarted)startAmbientMusic();
-document.removeEventListener("pointerdown",startMusicAfterFirstTouch);
-document.removeEventListener("touchstart",startMusicAfterFirstTouch);
+
+if(!musicStarted)
+startAmbientMusic();
+
+document.removeEventListener(
+"pointerdown",
+startMusicAfterFirstTouch
+);
+
+document.removeEventListener(
+"touchstart",
+startMusicAfterFirstTouch
+);
+
 }
-document.addEventListener("pointerdown",startMusicAfterFirstTouch,{once:true});
-setTimeout(()=>hideLoadingScreen(),2200);
+
+
+document.addEventListener(
+"pointerdown",
+startMusicAfterFirstTouch,
+{once:true}
+);
+
+
+setTimeout(
+()=>hideLoadingScreen(),
+2200
+);
+
 
 updateCoins();
+
 refreshAvatars();
+
 </script>
+
 </body>
-</html>
+   </html>
